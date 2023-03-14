@@ -17,7 +17,9 @@ def contains_duplicates(nums: List[int]) -> bool:
 def is_panagram(sentence: str) -> bool:
     """ Checks if all letters are present in a sentence. Ignores other characters.
         Time complexity: O(n)
-        Space complexity: O(n) 
+        Space complexity: O(n)
+
+        Post-submission notes: Set implementation is cleaner
     """
     checker = { char: False for char in "abcdefghijklmnopqrstuvwxyz" }
 
@@ -30,4 +32,3 @@ def is_panagram(sentence: str) -> bool:
                 checker[c] = True
 
     return not (False in checker.values())
-
