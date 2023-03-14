@@ -3,11 +3,14 @@ from typing import List
 def contains_duplicates(nums: List[int]) -> bool:
     """ Checks for duplicate integers in a list.
         Time complexity: O(n)
+        Space complexity: O(n)
     """
-    seen = {}
+    seen = set()
+
     for num in nums:
-        if seen.get(num, None) is not None:
+        if num in seen:
             return True
-        seen[num] = True
-        return False
+        seen.add(num)
+        
+    return False
 
