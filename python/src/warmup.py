@@ -2,7 +2,7 @@ from typing import List
 
 def contains_duplicates(nums: List[int]) -> bool:
     """ Checks for duplicate integers in a list.
-        Runtime: O(n)
+        Time complexity: O(n)
     """
     seen = {}
     for num in nums:
@@ -10,3 +10,4 @@ def contains_duplicates(nums: List[int]) -> bool:
             return True
         seen[num] = True
         return False
+
