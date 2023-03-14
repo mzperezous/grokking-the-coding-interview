@@ -19,7 +19,8 @@ def is_panagram(sentence: str) -> bool:
         Time complexity: O(n)
         Space complexity: O(n)
 
-        Post-submission notes: Set implementation is cleaner
+        Post-submission notes: Set implementation is cleaner -> O(1) space
+            as a HashSet can store 26 chars (at most)
     """
     checker = { char: False for char in "abcdefghijklmnopqrstuvwxyz" }
 
@@ -32,3 +33,29 @@ def is_panagram(sentence: str) -> bool:
                 checker[c] = True
 
     return not (False in checker.values())
+
+def square_root(x: int) -> int:
+    """ Returns the floor of the square root of a non-negative integer.
+        Uses binary search, so:
+            Runtime complexity: O(log(n))
+            Space complexity: O(1)
+    """
+
+    # Easy edge cases
+    if x < 2:
+        return x
+    
+    left, right = 2, x // 2
+    while left <= right:
+        
+        pivot = left + (right - left) // 2
+        guess = pivot * pivot
+
+        if guess > x:
+            right = pivot - 1
+        elif guess < x:
+            left = pivot + 1
+        else:
+            return pivot
+        
+    return right

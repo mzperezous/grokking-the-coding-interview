@@ -1,7 +1,8 @@
 from unittest import TestCase
 from src.warmup import (
     contains_duplicates,
-    is_panagram
+    is_panagram,
+    square_root
 )
 
 
@@ -22,3 +23,12 @@ class TestWarmupExercises(TestCase):
 
         self.assertEqual(is_panagram(panagram), True)
         self.assertEqual(is_panagram(not_panagram), False)
+
+    def test_square_root(self):
+        # Edge cases
+        self.assertEqual(square_root(0), 0)
+        self.assertEqual(square_root(1), 1)
+
+        self.assertEqual(square_root(5), 2)
+        self.assertEqual(square_root(13), 3)
+        self.assertEqual(square_root(66), 8)
