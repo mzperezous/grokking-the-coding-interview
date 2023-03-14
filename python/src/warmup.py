@@ -22,11 +22,12 @@ def is_panagram(sentence: str) -> bool:
     checker = { char: False for char in "abcdefghijklmnopqrstuvwxyz" }
 
     for char in sentence:
-        c = char.lower()
+        if char.isalpha():
+            c = char.lower()
 
-        # Default case handles other characters
-        check = checker.get(c, None)
-        if check is not None and not check:
-            checker[c] = True
+            # Default case handles other characters
+            if not checker.get(c):
+                checker[c] = True
 
     return not (False in checker.values())
+
