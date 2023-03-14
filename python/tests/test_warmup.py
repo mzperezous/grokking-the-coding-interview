@@ -1,5 +1,5 @@
 from unittest import TestCase
-from warmup import contains_duplicates
+from src.warmup import contains_duplicates
 
 
 class TestWarmupExercises(TestCase):
