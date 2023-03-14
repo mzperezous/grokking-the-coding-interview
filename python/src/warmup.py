@@ -47,7 +47,7 @@ def square_root(x: int) -> int:
     
     left, right = 2, x // 2
     while left <= right:
-        
+
         pivot = left + (right - left) // 2
         guess = pivot * pivot
 
@@ -59,3 +59,36 @@ def square_root(x: int) -> int:
             return pivot
         
     return right
+
+def reverse_vowels(s: str) -> str:
+    """ Returns a string with the vowels of s in reverse order.
+        Time complexity: O(n)
+        Space complexity: O(n)
+
+        Post-submission notes: Two pointers pattern also works well here
+    """
+    VOWELS = "aeiou"
+    track_indices: List[int] = []
+    characters: List[str] = []
+
+    for i, char in enumerate(s):
+        characters.append(char)
+        if char.lower() in VOWELS:
+            track_indices.append(i)
+
+    if len(track_indices) > 0:
+        track_indices = list(reversed(track_indices))
+        vowel_index_to_add = 0
+
+        res = [""] * len(s)
+        for i in range(len(res)):
+            if i in track_indices:
+                res[i] = s[track_indices[vowel_index_to_add]]
+                vowel_index_to_add += 1
+            else:
+                res[i] = s[i]
+                
+        return "".join(res)
+    
+    else:
+        return s

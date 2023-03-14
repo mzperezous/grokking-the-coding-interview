@@ -2,6 +2,7 @@ from unittest import TestCase
 from src.warmup import (
     contains_duplicates,
     is_panagram,
+    reverse_vowels,
     square_root
 )
 
@@ -32,3 +33,10 @@ class TestWarmupExercises(TestCase):
         self.assertEqual(square_root(5), 2)
         self.assertEqual(square_root(13), 3)
         self.assertEqual(square_root(66), 8)
+
+    def test_reverse_vowels(self):
+        self.assertEqual(reverse_vowels("hello"), "holle")
+        self.assertEqual(reverse_vowels("DesignGurus"), "DusugnGires")
+        self.assertEqual(reverse_vowels("AEIOU"), "UOIEA")
+        self.assertEqual(reverse_vowels("aA"), "Aa")
+        self.assertEqual(reverse_vowels(""), "")
