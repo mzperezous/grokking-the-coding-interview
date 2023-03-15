@@ -92,3 +92,19 @@ def reverse_vowels(s: str) -> str:
     
     else:
         return s
+
+def is_palindrome(s: str) -> bool:
+    s_chars = ''.join(map(lambda x: x.lower(), filter(lambda x: x.isalpha(), s)))
+    
+    # Two pointers
+    left, right = 0, len(s_chars) - 1
+
+    while right > left:
+
+        if s_chars[left] != s_chars[right]:
+            return False
+        
+        left += 1
+        right -= 1
+
+    return True

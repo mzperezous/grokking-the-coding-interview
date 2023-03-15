@@ -1,6 +1,7 @@
 from unittest import TestCase
 from src.warmup import (
     contains_duplicates,
+    is_palindrome,
     is_panagram,
     reverse_vowels,
     square_root
@@ -40,3 +41,10 @@ class TestWarmupExercises(TestCase):
         self.assertEqual(reverse_vowels("AEIOU"), "UOIEA")
         self.assertEqual(reverse_vowels("aA"), "Aa")
         self.assertEqual(reverse_vowels(""), "")
+
+    def test_is_palindrome(self):
+        self.assertEqual(is_palindrome("A man, a plan, a canal, Panama!"), True)
+        self.assertEqual(is_palindrome("race a car"), False)
+        self.assertEqual(is_palindrome("Was it a car or a cat I saw?"), True)
+        self.assertEqual(is_palindrome("Madam, in Eden, I'm Adam."), True)
+        self.assertEqual(is_palindrome("''"), True)
