@@ -1,6 +1,7 @@
 from unittest import TestCase
 from src.warmup import (
     contains_duplicates,
+    is_anagram,
     is_palindrome,
     is_panagram,
     reverse_vowels,
@@ -48,3 +49,10 @@ class TestWarmupExercises(TestCase):
         self.assertEqual(is_palindrome("Was it a car or a cat I saw?"), True)
         self.assertEqual(is_palindrome("Madam, in Eden, I'm Adam."), True)
         self.assertEqual(is_palindrome("''"), True)
+
+    def test_is_anagram(self):
+        self.assertEqual(is_anagram("listen", "silent"), True)
+        self.assertEqual(is_anagram("hello", "world"), False)
+        self.assertEqual(is_anagram("anagram", "nagaram"), True)
+        self.assertEqual(is_anagram("rat", "car"), False)
+        self.assertEqual(is_anagram("", ""), True)

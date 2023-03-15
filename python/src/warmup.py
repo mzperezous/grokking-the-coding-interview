@@ -114,3 +114,30 @@ def is_palindrome(s: str) -> bool:
         right -= 1
 
     return True
+
+def is_anagram(s1: str, s2: str) -> bool:
+    """ Returns a boolean representing whether s2 is an anagram of s1.
+        Time complexity: O(n) => O(s1 + s2)
+        Space complexity: O(1) assuming we only deal with strings of letters
+
+        Post-submission notes: Can use one dictionary and decrement based on second string
+            If any values are not 0, it's not an anagram
+    """
+    s1_tracker = {}
+    s2_tracker = {}
+
+    # Easy edge case & protect against null pointers in loop
+    if len(s1) != len(s2):
+        return False
+    
+    for i, s1_char in enumerate(s1):
+        s2_char = s2[i]
+        if s1_char not in s1_tracker:
+            s1_tracker[s1_char] = 0
+        if s2_char not in s2_tracker:
+            s2_tracker[s2_char] = 0
+
+        s1_tracker[s1_char] += 1
+        s2_tracker[s2_char] += 1
+
+    return s1_tracker == s2_tracker
