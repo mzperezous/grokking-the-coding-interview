@@ -141,3 +141,24 @@ def is_anagram(s1: str, s2: str) -> bool:
         s2_tracker[s2_char] += 1
 
     return s1_tracker == s2_tracker
+
+def shortest_word_distance(words: List[str], word_1: str, word_2: str) -> int:
+    """ Returns the shortest distance between word_1 and word_2 (assuming they are in words at least once).
+        Time complexity: O(n)
+        Space complexity: O(1)
+    """
+
+    shortest = len(words)
+
+    pos_1, pos_2 = None, None
+
+    for i, word in enumerate(words):
+        if word == word_1:
+            pos_1 = i
+        elif word == word_2:
+            pos_2 = i
+
+        if pos_1 is not None and pos_2 is not None:
+            shortest = min(shortest, abs(pos_2 - pos_1))
+
+    return shortest

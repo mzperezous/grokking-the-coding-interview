@@ -5,6 +5,7 @@ from src.warmup import (
     is_palindrome,
     is_panagram,
     reverse_vowels,
+    shortest_word_distance,
     square_root
 )
 
@@ -56,3 +57,9 @@ class TestWarmupExercises(TestCase):
         self.assertEqual(is_anagram("anagram", "nagaram"), True)
         self.assertEqual(is_anagram("rat", "car"), False)
         self.assertEqual(is_anagram("", ""), True)
+
+    def test_shortest_word_distance(self):
+        self.assertEqual(shortest_word_distance(["the", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog"], "fox", "dog"), 5)
+        self.assertEqual(shortest_word_distance(["a", "b", "c", "d", "a", "b"], "a", "b"), 1)
+        self.assertEqual(shortest_word_distance(["a", "c", "d", "b", "a"], "a", "b"), 1)
+        self.assertEqual(shortest_word_distance(["a", "b", "c", "d", "e"], "a", "e"), 4)
