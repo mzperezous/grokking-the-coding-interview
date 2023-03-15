@@ -4,6 +4,7 @@ from src.warmup import (
     is_anagram,
     is_palindrome,
     is_panagram,
+    num_good_pairs,
     reverse_vowels,
     shortest_word_distance,
     square_root
@@ -63,3 +64,8 @@ class TestWarmupExercises(TestCase):
         self.assertEqual(shortest_word_distance(["a", "b", "c", "d", "a", "b"], "a", "b"), 1)
         self.assertEqual(shortest_word_distance(["a", "c", "d", "b", "a"], "a", "b"), 1)
         self.assertEqual(shortest_word_distance(["a", "b", "c", "d", "e"], "a", "e"), 4)
+
+    def test_num_good_pairs(self):
+        self.assertEqual(num_good_pairs([1, 2, 3, 1, 1, 3]), 4)
+        self.assertEqual(num_good_pairs([1, 1, 1, 1]), 6)
+        self.assertEqual(num_good_pairs([1, 2, 3]), 0)

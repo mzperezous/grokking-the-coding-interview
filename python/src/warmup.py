@@ -1,4 +1,5 @@
 from typing import List
+from collections import Counter
 
 def contains_duplicates(nums: List[int]) -> bool:
     """ Checks for duplicate integers in a list.
@@ -162,3 +163,26 @@ def shortest_word_distance(words: List[str], word_1: str, word_2: str) -> int:
             shortest = min(shortest, abs(pos_2 - pos_1))
 
     return shortest
+
+def num_good_pairs(nums: List[int]) -> int:
+    """ Returns the numebr of 'good pairs,' e.g. nums[i] == nums[j], i < j, in nums
+        Time complexity: O(n)
+        Space complexity: O(n)
+    """
+    
+    if len(set(nums)) == len(nums):
+        return 0
+
+    ctr = Counter(nums)
+    good_pairs = 0
+
+    def combinatorial_pairs(number: int, total: int):
+        if number < 2:
+            return 0
+        return total + (number - 1) + combinatorial_pairs(number - 1, total)
+        
+
+    for num, count in ctr.items():
+        good_pairs += combinatorial_pairs(count, 0)
+
+    return good_pairs
