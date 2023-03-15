@@ -94,6 +94,12 @@ def reverse_vowels(s: str) -> str:
         return s
 
 def is_palindrome(s: str) -> bool:
+    """ Returns a boolean representing whether s is a palindrome using two pointers.
+        Time complexity: O(n)
+        Space complexity: O(1)
+
+        Post-submission notes: Investigate how the map, filter, join combo affects space (shouldn't)
+    """
     s_chars = ''.join(map(lambda x: x.lower(), filter(lambda x: x.isalpha(), s)))
     
     # Two pointers
