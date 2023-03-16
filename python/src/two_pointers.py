@@ -50,6 +50,11 @@ def remove_duplicates(nums: List[int]) -> int:
     return len(nums)
 
 def square_sorted(nums: List[int]) -> List[int]:
+    """ Return an array of the squares of the numbers in nums.
+        Time complexity: O(n)
+        Space complexity: O(n)
+    """
+    
     # Simple map if no negatives
     if nums[0] >= 0:
         return [x ** 2 for x in nums]
