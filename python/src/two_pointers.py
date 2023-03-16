@@ -54,7 +54,7 @@ def square_sorted(nums: List[int]) -> List[int]:
         Time complexity: O(n)
         Space complexity: O(n)
     """
-    
+
     # Simple map if no negatives
     if nums[0] >= 0:
         return [x ** 2 for x in nums]
@@ -85,3 +85,45 @@ def square_sorted(nums: List[int]) -> List[int]:
             curr_idx -= 1
 
     return squared_nums
+
+
+def triplet_sum_to_zero(nums: List[int]) -> List[List[int]]:
+    """ Returns all triplets in nums that sum to zero.
+            Uses helper function to sum to inverse of any given element.
+        Time complexity: O(n*log(n) + n^2) => O(n^2)
+        Space complexity: O(n)
+    """
+    triplets = []
+    sorted_nums = sorted(nums)
+
+    def pair_sum_to_number(target: int, target_idx: int, left_idx: int):
+        l, r = left_idx, len(sorted_nums) - 1
+
+        for i, val in enumerate(sorted_nums[left_idx:]):
+            # Only look for unique values
+            if i > 0 and val == sorted_nums[i - 1]:
+                continue
+            
+            l_val, r_val = sorted_nums[l], sorted_nums[r]
+
+            if l >= r:
+                return
+
+            if l_val + r_val + target == 0:
+                triplets.append([target, l_val, r_val])
+                l += 1
+                r -= 1
+            elif l_val + r_val + target > 0:
+                r -= 1
+            else:
+                l += 1
+
+        return
+
+    for i, val in enumerate(sorted_nums):
+        l = i + 1
+
+        if not len(sorted_nums[l:]) < 3:
+            pair_sum_to_number(val, i, l)
+
+    return triplets

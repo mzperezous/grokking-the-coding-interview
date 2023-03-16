@@ -2,7 +2,8 @@ from unittest import TestCase
 from src.two_pointers import (
     pair_with_target_sum, 
     remove_duplicates,
-    square_sorted
+    square_sorted,
+    triplet_sum_to_zero
 )
 
 class TestTwoPointers(TestCase):
@@ -20,3 +21,7 @@ class TestTwoPointers(TestCase):
     def test_square_sorted(self):
         self.assertEqual(square_sorted([-2, -1, 0, 2, 3]), [0, 1, 4, 4, 9])
         self.assertEqual(square_sorted([-3, -1, 0, 1, 2]), [0, 1, 1, 4, 9])
+
+    def test_triplet_sum_to_zero(self):
+        self.assertEqual(triplet_sum_to_zero([-3, 0, 1, 2, -1, 1, -2]), [[-3, 1, 2], [-2, 0, 2], [-2, 1, 1], [-1, 0, 1]])
+        self.assertEqual(triplet_sum_to_zero([-5, 2, -1, -2, 3]), [[-5, 2, 3], [-2, -1, 3]])
