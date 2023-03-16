@@ -48,3 +48,35 @@ def remove_duplicates(nums: List[int]) -> int:
             nums.pop(i)
 
     return len(nums)
+
+def square_sorted(nums: List[int]) -> List[int]:
+    # Simple map if no negatives
+    if nums[0] >= 0:
+        return [x ** 2 for x in nums]
+    
+    length = len(nums)
+    l, r = 0, length - 1
+    squared_nums = [0 for x in range(length)]
+    curr_idx = length - 1
+
+    while curr_idx >= 0:
+        l_squared, r_squared = nums[l] ** 2, nums[r] ** 2
+        if l == r:
+            squared_nums[curr_idx] = l_squared
+            curr_idx -= 1
+        elif l_squared == r_squared:
+            squared_nums[curr_idx] = l_squared
+            squared_nums[curr_idx - 1] = r_squared
+            l += 1
+            r -= 1
+            curr_idx -= 2
+        elif l_squared > r_squared:
+            squared_nums[curr_idx] = l_squared
+            l += 1
+            curr_idx -= 1
+        else:
+            squared_nums[curr_idx] = r_squared
+            r -= 1
+            curr_idx -= 1
+
+    return squared_nums

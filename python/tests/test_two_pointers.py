@@ -1,7 +1,8 @@
 from unittest import TestCase
 from src.two_pointers import (
     pair_with_target_sum, 
-    remove_duplicates
+    remove_duplicates,
+    square_sorted
 )
 
 class TestTwoPointers(TestCase):
@@ -15,3 +16,7 @@ class TestTwoPointers(TestCase):
     def test_remove_duplicates(self):
         self.assertEqual(remove_duplicates([2, 3, 3, 3, 6, 9, 9]), 4)
         self.assertEqual(remove_duplicates([2, 2, 2, 11]), 2)
+
+    def test_square_sorted(self):
+        self.assertEqual(square_sorted([-2, -1, 0, 2, 3]), [0, 1, 4, 4, 9])
+        self.assertEqual(square_sorted([-3, -1, 0, 1, 2]), [0, 1, 1, 4, 9])
