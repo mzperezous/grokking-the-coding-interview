@@ -127,3 +127,39 @@ def triplet_sum_to_zero(nums: List[int]) -> List[List[int]]:
             pair_sum_to_number(val, i, l)
 
     return triplets
+
+def triplet_sum_closest_to_target(nums: List[int], target: int) -> List[int]:
+    """ Returns the sum of the triplet with the sum closest to target.
+            If two are equidistant, return the smaller sum.
+        Time complexity: O(n^2)
+        Space complexity: O(1)
+    """
+    sorted_nums = sorted(nums)
+
+    triplet = None
+    triplet_sum = None
+
+    for i, val in enumerate(sorted_nums):
+        l, r = i + 1, len(sorted_nums) - 1
+
+        while r > l:
+            l_val, r_val = sorted_nums[l], sorted_nums[r]
+            check_sum = l_val + r_val + val
+
+            if triplet is None and triplet_sum is None:
+                triplet = [val, l_val, r_val]
+                triplet_sum = check_sum
+
+            check_diff = abs(check_sum - target)
+            triplet_diff = abs(triplet_sum - target)
+
+            if check_diff < triplet_diff or (check_diff == triplet_diff and check_sum < triplet_sum):
+                triplet = [val, l_val, r_val]
+                triplet_sum = check_sum
+            
+            if check_sum > target:
+              r -= 1
+            else:
+              l += 1
+
+    return triplet_sum

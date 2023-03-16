@@ -3,6 +3,7 @@ from src.two_pointers import (
     pair_with_target_sum, 
     remove_duplicates,
     square_sorted,
+    triplet_sum_closest_to_target,
     triplet_sum_to_zero
 )
 
@@ -25,3 +26,9 @@ class TestTwoPointers(TestCase):
     def test_triplet_sum_to_zero(self):
         self.assertEqual(triplet_sum_to_zero([-3, 0, 1, 2, -1, 1, -2]), [[-3, 1, 2], [-2, 0, 2], [-2, 1, 1], [-1, 0, 1]])
         self.assertEqual(triplet_sum_to_zero([-5, 2, -1, -2, 3]), [[-5, 2, 3], [-2, -1, 3]])
+
+    def test_triplet_sum_closest_to_target(self):
+        self.assertEqual(triplet_sum_closest_to_target([-1, 0, 2, 3], 3), 2)
+        self.assertEqual(triplet_sum_closest_to_target([-3, -1, 1, 2], 1), 0)
+        self.assertEqual(triplet_sum_closest_to_target([1, 0, 1, 1], 100), 3)
+        self.assertEqual(triplet_sum_closest_to_target([0, 0, 1, 1, 2, 6], 5), 4)
