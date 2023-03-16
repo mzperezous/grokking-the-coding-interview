@@ -132,7 +132,9 @@ def triplet_sum_closest_to_target(nums: List[int], target: int) -> List[int]:
     """ Returns the sum of the triplet with the sum closest to target.
             If two are equidistant, return the smaller sum.
         Time complexity: O(n^2)
-        Space complexity: O(1)
+        Space complexity: O(n)
+
+        Post-submission notes: Space complexity is O(n) because of sorting
     """
     sorted_nums = sorted(nums)
 
