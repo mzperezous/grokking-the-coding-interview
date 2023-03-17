@@ -165,3 +165,38 @@ def triplet_sum_closest_to_target(nums: List[int], target: int) -> List[int]:
               l += 1
 
     return triplet_sum
+
+def triplets_with_smaller_sum(nums: List[int], target: int) -> int:
+    """ Given an unordered list of ints, return all triplets that sum to less than target.
+        Time complexity: O(n^2)
+        Space complexity: O(n)
+    """
+
+    sorted_nums = sorted(nums)
+    count = 0
+
+    def count_pairs(curr_val: int, curr_idx: int):
+        l, r = len(sorted_nums) - 2, len(sorted_nums) - 1
+        count = 0
+
+        while r > curr_idx + 1:
+            while l > curr_idx:
+                l_val, r_val = sorted_nums[l], sorted_nums[r]
+
+                if l_val + r_val + curr_val < target:
+                    count += l - curr_idx
+                    break
+
+                l -= 1
+
+            r -= 1
+            l = r - 1
+        
+        return count
+
+    for i, val in enumerate(sorted_nums):
+        if val >= target / 3 or i >= len(sorted_nums) - 2:
+            break
+        count += count_pairs(val, i)
+
+    return count

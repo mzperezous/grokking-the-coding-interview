@@ -4,7 +4,8 @@ from src.two_pointers import (
     remove_duplicates,
     square_sorted,
     triplet_sum_closest_to_target,
-    triplet_sum_to_zero
+    triplet_sum_to_zero,
+    triplets_with_smaller_sum
 )
 
 class TestTwoPointers(TestCase):
@@ -32,3 +33,7 @@ class TestTwoPointers(TestCase):
         self.assertEqual(triplet_sum_closest_to_target([-3, -1, 1, 2], 1), 0)
         self.assertEqual(triplet_sum_closest_to_target([1, 0, 1, 1], 100), 3)
         self.assertEqual(triplet_sum_closest_to_target([0, 0, 1, 1, 2, 6], 5), 4)
+    
+    def test_triplets_with_smaller_sum(self):
+        self.assertEqual(triplets_with_smaller_sum([-1, 0, 2, 3], 3), 2)
+        self.assertEqual(triplets_with_smaller_sum([-1, 4, 2, 1, 3], 5), 4)
