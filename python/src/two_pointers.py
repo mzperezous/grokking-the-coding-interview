@@ -1,4 +1,4 @@
-from typing import Iterable, List
+from typing import List
 
 def pair_with_target_sum(nums: List[int], target: int):
     """ Returns indices of elements that add up to target if they exist.
@@ -200,3 +200,32 @@ def triplets_with_smaller_sum(nums: List[int], target: int) -> int:
         count += count_pairs(val, i)
 
     return count
+
+def subarrays_product_less_than_target(nums: List[int], target: int) -> List[List[int]]:
+    """ Returns all contiguous subarrays whose elements, when multiplied, are less than target.
+            Assumes all positive integers, positive target
+        Time complexity: O(n^2)
+        Space complexity: O(n * (n * (n + 1) / 2)) => O(n^3)
+    """
+    from functools import reduce
+
+    subarrays = []
+    l, r = 0, 1
+
+    while l < len(nums):
+        if (l_val := nums[l]) < target:
+
+            subarrays.append([l_val])
+
+            while r < len(nums):
+                if reduce(lambda x, y: x * y, nums[l:r + 1]) < target:
+                    r += 1
+                    subarrays.append(nums[l:r])
+                else:
+                    break
+
+                l
+        l += 1
+        r = l + 1
+
+    return subarrays

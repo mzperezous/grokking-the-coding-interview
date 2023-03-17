@@ -3,6 +3,7 @@ from src.two_pointers import (
     pair_with_target_sum, 
     remove_duplicates,
     square_sorted,
+    subarrays_product_less_than_target,
     triplet_sum_closest_to_target,
     triplet_sum_to_zero,
     triplets_with_smaller_sum
@@ -37,3 +38,13 @@ class TestTwoPointers(TestCase):
     def test_triplets_with_smaller_sum(self):
         self.assertEqual(triplets_with_smaller_sum([-1, 0, 2, 3], 3), 2)
         self.assertEqual(triplets_with_smaller_sum([-1, 4, 2, 1, 3], 5), 4)
+
+    def test_subarrays_product_less_than_target(self):
+        self.assertEqual(
+            subarrays_product_less_than_target([2, 5, 3, 10], 30),
+            [[2], [2, 5], [5], [5, 3], [3], [10]]
+        )
+        self.assertEqual(
+            subarrays_product_less_than_target([8, 2, 6, 5], 50),
+            [[8], [8, 2], [2], [2, 6], [6], [6, 5], [5]]
+        )
