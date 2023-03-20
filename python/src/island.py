@@ -210,18 +210,14 @@ def num_distinct_islands(matrix: List[List[int]]) -> int:
         if matrix[y][x] == 0:
             return ""
         
-
-        if direction == "N":
-            print(x, y)
-        
         # Add traversal record (except on first call)
         if direction is not None:
             matrix_s += direction
 
         matrix[y][x] = 0
         matrix_s += traverse_island_dfs_with_direction(matrix, x + 1, y, matrix_s, "E")
-        matrix_s += traverse_island_dfs_with_direction(matrix, x, y - 1, matrix_s, "S")
-        matrix_s += traverse_island_dfs_with_direction(matrix, x, y + 1, matrix_s, "N")
+        matrix_s += traverse_island_dfs_with_direction(matrix, x, y - 1, matrix_s, "N")
+        matrix_s += traverse_island_dfs_with_direction(matrix, x, y + 1, matrix_s, "S")
         matrix_s += traverse_island_dfs_with_direction(matrix, x - 1, y, matrix_s, "W")
 
         return matrix_s
@@ -232,5 +228,4 @@ def num_distinct_islands(matrix: List[List[int]]) -> int:
                 island = traverse_island_dfs_with_direction(matrix, i, j)
                 islands.add(island)
 
-    print(islands)
     return len(islands)
