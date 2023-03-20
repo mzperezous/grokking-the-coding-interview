@@ -4,7 +4,8 @@ from src.island import (
     count_islands,
     flood_fill,
     island_perimeter,
-    max_area_island
+    max_area_island,
+    num_distinct_islands
 )
 
 class TestIsland(TestCase):
@@ -92,3 +93,23 @@ class TestIsland(TestCase):
                 [0, 1, 0, 0]
             ]), 
         12)
+
+    def test_num_distinct_islands(self):
+        self.assertEqual(num_distinct_islands(
+            [
+                [1, 1, 0, 1, 1],
+                [1, 1, 0, 1, 1],
+                [0, 0, 0, 0, 0],
+                [0, 1, 1, 0, 1],
+                [0, 1, 1, 0, 1]
+            ]),
+        2)
+        self.assertEqual(num_distinct_islands(
+            [
+                [1, 1, 0, 1],
+                [0, 1, 1, 0],
+                [0, 0, 0, 0],
+                [1, 1, 0, 0],
+                [0, 1, 1, 0]
+            ]),
+        2)

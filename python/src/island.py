@@ -1,5 +1,15 @@
 from typing import List, Set, Tuple
 
+
+"""  Refactors  """
+def is_valid(x: int, y: int, matrix: List[List[int]]) -> bool:
+        if x < 0 or y < 0 or y >= len(matrix) or x >= len(matrix[y]):
+            return False
+        return True
+"""             """
+
+
+
 def count_islands(matrix: List[List[int]]) -> int:
     
     seen: Set[Tuple[int, int]] = set()
@@ -7,8 +17,7 @@ def count_islands(matrix: List[List[int]]) -> int:
 
     def search_from_node_dfs(curr: Tuple[int, int], matrix: List[List[int]], seen: Set[Tuple[int, int]]) -> None:
         i, j = curr[0], curr[1]
-        
-        if (i, j) in seen:
+        if not is_valid(i, j, matrix) or (i, j) in seen:
             return
         
         seen.add((i, j))
@@ -17,14 +26,10 @@ def count_islands(matrix: List[List[int]]) -> int:
         if matrix[j][i] == 0:
             return
         
-        if j > 0:
-            search_from_node_dfs((i, j - 1), matrix, seen)  # Above
-        if i > 0:
-            search_from_node_dfs((i - 1, j), matrix, seen)  # Left
-        if j < len(matrix) - 1:
-            search_from_node_dfs((i, j + 1), matrix, seen)  # Below
-        if i < len(matrix[j]) - 1:
-            search_from_node_dfs((i + 1, j), matrix, seen)  # Right
+        search_from_node_dfs((i, j - 1), matrix, seen)  # Above
+        search_from_node_dfs((i - 1, j), matrix, seen)  # Left
+        search_from_node_dfs((i, j + 1), matrix, seen)  # Below
+        search_from_node_dfs((i + 1, j), matrix, seen)  # Right
 
 
     for j, row in enumerate(matrix):
@@ -85,7 +90,7 @@ def flood_fill(matrix: List[List[int]], x_start: int, y_start: int, new_color: i
         current = to_visit.pop()
         x, y = current[0], current[1]
 
-        if x < 0 or y < 0 or y >= len(matrix) or x >= len(matrix[y]):
+        if not is_valid(x, y, matrix):
             continue
         
         if matrix[y][x] == 1 and current not in visited:
@@ -104,7 +109,7 @@ def count_closed_islands(matrix: List[List[int]]):
 
     def traverse_island_dfs(x: int, y: int, matrix: List[List[int]]) -> bool:
         # If we got to an out of bounds node, it means we came from an edge island node -> not closed
-        if x < 0 or y < 0 or y >= len(matrix) or x >= len(matrix[y]):
+        if not is_valid(x, y, matrix):
             return False
         
         if matrix[y][x] == 0:
@@ -190,3 +195,42 @@ def island_perimeter(matrix: List[List[int]]) -> int:
 
 
     return sides
+
+def num_distinct_islands(matrix: List[List[int]]) -> int:
+    """ An island is distinct if they can be translated to equal one another """
+
+    """ Post-submission notes: Check out why traversal strings are wrong """
+
+    islands = set()
+
+    def traverse_island_dfs_with_direction(matrix: List[List[int]], x: int, y: int, matrix_s: str = "", direction: str | None  = None) -> str:
+        if not is_valid(x, y, matrix):
+            return ""
+        
+        if matrix[y][x] == 0:
+            return ""
+        
+
+        if direction == "N":
+            print(x, y)
+        
+        # Add traversal record (except on first call)
+        if direction is not None:
+            matrix_s += direction
+
+        matrix[y][x] = 0
+        matrix_s += traverse_island_dfs_with_direction(matrix, x + 1, y, matrix_s, "E")
+        matrix_s += traverse_island_dfs_with_direction(matrix, x, y - 1, matrix_s, "S")
+        matrix_s += traverse_island_dfs_with_direction(matrix, x, y + 1, matrix_s, "N")
+        matrix_s += traverse_island_dfs_with_direction(matrix, x - 1, y, matrix_s, "W")
+
+        return matrix_s
+        
+    for j, row in enumerate(matrix):
+        for i, val in enumerate(row):
+            if val == 1:
+                island = traverse_island_dfs_with_direction(matrix, i, j)
+                islands.add(island)
+
+    print(islands)
+    return len(islands)
