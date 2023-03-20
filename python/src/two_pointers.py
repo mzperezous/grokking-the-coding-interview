@@ -301,8 +301,10 @@ def quad_sum_to_target(nums: List[int], target: int) -> List[List[int]]:
 
 def backspace_compare(s1: str, s2: str) -> None:
     """ Compares two strings where # represents a backspace.
-        Time complexity: O(max(len(s1), len(s2)))
-        Space complexity: O(max(len(s1), len(s2)))
+        Time complexity: O(len(s1) + len(s2))
+        Space complexity: O(len(s1) + len(s2))
+
+        Post-submission notes: Review given solution for space complexity reduction
     """
 
     def resolve_backspaces(s: str) -> str:
