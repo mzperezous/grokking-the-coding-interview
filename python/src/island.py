@@ -127,3 +127,66 @@ def count_closed_islands(matrix: List[List[int]]):
                 closed += 1
 
     return closed
+
+""" Challenge problems """
+
+def island_perimeter(matrix: List[List[int]]) -> int:
+    """ Assumption: Matrix has a single island. """
+
+    from collections import deque
+
+    i = None
+    j = None
+    # Find the start of the island
+    for column, row in enumerate(matrix):
+        for tmp_i, val in enumerate(row):
+            if val == 1:
+                i = tmp_i
+                j = column
+
+    sides = 0
+    visited = set()
+    to_visit = deque([(i, j)])
+
+    while len(to_visit) > 0:
+        curr = to_visit.pop()
+        visited.add(curr)
+        x, y = curr[0], curr[1]
+
+        # Left
+        if x > 0:
+            if matrix[y][x - 1] == 0:
+                sides += 1
+            elif (x - 1, y) not in visited:
+                to_visit.appendleft((x - 1, y))
+        else:
+            sides += 1
+        # Top
+        if y > 0:
+            if matrix[y - 1][x] == 0:
+                sides += 1
+            elif (x, y - 1) not in visited:
+                to_visit.appendleft((x, y - 1))
+        else:
+            sides += 1
+
+        # Right
+        if x < len(matrix[y]) - 1:
+            if matrix[y][x + 1] == 0:
+                sides += 1
+            elif (x + 1, y) not in visited:
+                to_visit.appendleft((x + 1, y))
+        else:
+            sides += 1
+
+        # Bottom
+        if y < len(matrix) - 1:
+            if matrix[y + 1][x] == 0:
+                sides += 1
+            elif (x, y + 1) not in visited:
+                to_visit.appendleft((x, y + 1))
+        else:
+            sides += 1
+
+
+    return sides

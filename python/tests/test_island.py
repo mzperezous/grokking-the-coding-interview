@@ -3,6 +3,7 @@ from src.island import (
     count_closed_islands,
     count_islands,
     flood_fill,
+    island_perimeter,
     max_area_island
 )
 
@@ -71,3 +72,23 @@ class TestIsland(TestCase):
                 [0, 0, 0, 0]
             ]
         ), 2)
+
+    def test_island_perimeter(self):
+        self.assertEqual(island_perimeter(
+            [
+                [1, 1, 0, 0, 0],
+                [0, 1, 0, 0, 0],
+                [0, 1, 0, 0, 0],
+                [0, 1, 1, 0, 0],
+                [0, 0, 0, 0, 0]
+            ]), 
+        14)
+        self.assertEqual(island_perimeter(
+            [
+                [0, 0, 0, 0],
+                [0, 1, 0, 0],
+                [0, 1, 0, 0],
+                [0, 1, 1, 0],
+                [0, 1, 0, 0]
+            ]), 
+        12)
