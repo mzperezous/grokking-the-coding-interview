@@ -8,6 +8,7 @@ class Node:
 """                          """
 
 def has_cycle(head: Node):
+    """ Post submission-notes: You can just go 1 and 2 steps and they'll still eventually reach. See solution """
 
     p1 = head
     p2 = head
