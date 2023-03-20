@@ -71,3 +71,31 @@ def max_area_island(matrix: List[List[int]]) -> int:
                 max_area = max(visit_node_dfs((i, j), matrix), max_area)
 
     return max_area
+
+def flood_fill(matrix: List[List[int]], x_start: int, y_start: int, new_color: int) -> List[List[int]]:
+    from collections import deque
+
+    if matrix[y_start][x_start] != 1:
+        return matrix
+
+    visited = set()
+    to_visit = deque([(x_start, y_start)])
+
+    while len(to_visit) > 0:
+        current = to_visit.pop()
+        x, y = current[0], current[1]
+
+        if x < 0 or y < 0 or y >= len(matrix) or x >= len(matrix[y]):
+            continue
+        
+        if matrix[y][x] == 1 and current not in visited:
+            matrix[y][x] = new_color
+
+            visited.add(current)
+            to_visit.append((x + 1, y))
+            to_visit.append((x, y + 1))
+            to_visit.append((x - 1, y))
+            to_visit.append((x, y - 1))
+
+    return matrix
+            
