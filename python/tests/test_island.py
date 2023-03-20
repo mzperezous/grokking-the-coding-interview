@@ -1,5 +1,6 @@
 from unittest import TestCase
 from src.island import (
+    count_closed_islands,
     count_islands,
     flood_fill,
     max_area_island
@@ -50,3 +51,23 @@ class TestIsland(TestCase):
                 [0, 0, 5, 0, 0]
             ]
         )
+
+    def test_count_closed_islands(self):
+        self.assertEqual(count_closed_islands(
+            [
+                [1, 1, 0, 0, 0], 
+                [0, 1, 0, 0, 0], 
+                [0, 0, 1, 1, 0],
+                [0, 1, 1, 0, 0], 
+                [0, 0, 0, 0, 0]
+            ]), 
+        1)
+        self.assertEqual(count_closed_islands(
+            [
+                [0, 0, 0, 0], 
+                [0, 1, 0, 0], 
+                [0, 1, 0, 0], 
+                [0, 0, 1, 0], 
+                [0, 0, 0, 0]
+            ]
+        ), 2)

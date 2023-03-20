@@ -99,3 +99,31 @@ def flood_fill(matrix: List[List[int]], x_start: int, y_start: int, new_color: i
 
     return matrix
             
+
+def count_closed_islands(matrix: List[List[int]]):
+
+    def traverse_island_dfs(x: int, y: int, matrix: List[List[int]]) -> bool:
+        # If we got to an out of bounds node, it means we came from an edge island node -> not closed
+        if x < 0 or y < 0 or y >= len(matrix) or x >= len(matrix[y]):
+            return False
+        
+        if matrix[y][x] == 0:
+            return True
+        
+        matrix[y][x] = 0
+        
+        left = traverse_island_dfs(x - 1, y, matrix)
+        right = traverse_island_dfs(x + 1, y, matrix)
+        top = traverse_island_dfs(x, y + 1, matrix)
+        bottom = traverse_island_dfs(x, y - 1, matrix)
+
+        return left and right and top and bottom
+    
+    closed = 0
+
+    for y, row in enumerate(matrix):
+        for x, val in enumerate(row):
+            if val == 1 and traverse_island_dfs(x, y, matrix):
+                closed += 1
+
+    return closed
