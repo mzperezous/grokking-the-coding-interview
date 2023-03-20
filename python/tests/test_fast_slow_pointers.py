@@ -1,5 +1,6 @@
 from unittest import TestCase
 from src.fast_slow_pointers import (
+    find_cycle_start,
     has_cycle,
     Node
 )
@@ -24,3 +25,20 @@ class TestFastSlowPointers(TestCase):
 
         self.assertEqual(has_cycle(n1_cycle), True)
         self.assertEqual(has_cycle(n2_cycle), False)
+
+    def test_find_cycle_start(self):
+        head = Node(1)
+        head.next = Node(2)
+        head.next.next = Node(3)
+        head.next.next.next = Node(4)
+        head.next.next.next.next = Node(5)
+        head.next.next.next.next.next = Node(6)
+
+        head.next.next.next.next.next.next = head.next.next
+        self.assertEqual(find_cycle_start(head).value, 3)
+
+        head.next.next.next.next.next.next = head.next.next.next
+        self.assertEqual(find_cycle_start(head).value, 4)
+
+        head.next.next.next.next.next.next = head
+        self.assertEqual(find_cycle_start(head).value, 1)
