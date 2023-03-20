@@ -374,4 +374,3 @@ def minimum_window_sort(nums: List[int]):
         r += 1
 
     return r + 1 - l
-        
