@@ -70,8 +70,8 @@ class TestIsland(TestCase):
                 [0, 1, 0, 0], 
                 [0, 0, 1, 0], 
                 [0, 0, 0, 0]
-            ]
-        ), 2)
+            ]), 
+        2)
 
     def test_island_perimeter(self):
         self.assertEqual(island_perimeter(
