@@ -42,3 +42,32 @@ def count_islands(matrix: List[List[int]]) -> int:
 
     return islands
             
+
+def max_area_island(matrix: List[List[int]]) -> int:
+    
+    max_area = -1
+
+    def visit_node_dfs(location: Tuple[int, int], matrix: List[List[int]]):
+        x, y = location[0], location[1]
+
+        if y < 0 or y == len(matrix) or x < 0 or x >= len(matrix[y]) or matrix[y][x] == 0:
+            return 0
+        
+        matrix[y][x] = 0  # Mark as visited
+        area = 1
+
+        area += visit_node_dfs((x + 1, y), matrix)
+        area += visit_node_dfs((x, y + 1), matrix)
+        area += visit_node_dfs((x - 1, y), matrix)
+        area += visit_node_dfs((x, y - 1), matrix)
+
+        return area
+    
+    max_area = -1
+    
+    for i, row in enumerate(matrix):
+        for j, val in enumerate(row):
+            if val == 1:
+                max_area = max(visit_node_dfs((i, j), matrix), max_area)
+
+    return max_area
