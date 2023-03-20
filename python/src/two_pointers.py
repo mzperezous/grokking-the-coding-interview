@@ -260,6 +260,10 @@ def dutch_flag_problem(nums: List[int]) -> None:
 """ Challenge problems """
 
 def quad_sum_to_target(nums: List[int], target: int) -> List[List[int]]:
+    """ Returns all sets of 4 elements that sum to target
+        Time complexity: O(n^3)
+        Space complexity: O(n) - sorting, again
+    """
     nums.sort()
 
     quads = []
@@ -294,3 +298,38 @@ def quad_sum_to_target(nums: List[int], target: int) -> List[List[int]]:
                     l += 1
 
     return quads
+
+def backspace_compare(s1: str, s2: str) -> None:
+    """ Compares two strings where # represents a backspace.
+        Time complexity: O(max(len(s1), len(s2)))
+        Space complexity: O(max(len(s1), len(s2)))
+    """
+
+    def resolve_backspaces(s: str) -> str:
+        l, r = 0, 1
+        BS = "#"
+        s_list = list(s)
+
+        while s_list[l] == BS:
+            l += 1
+            r += 1
+
+        while r < len(s_list):
+
+            if s_list[r] != BS:
+                l += 1
+                r += 1
+                continue
+            while r < len(s_list) and s_list[r] == BS:
+                s_list.pop(r)
+                s_list.pop(l)
+
+                # Handle consecutive backspaces
+                if l < len(s_list) and s_list[l] == BS:
+                    l -= 1
+                    r -= 1
+
+        return "".join(s_list)
+    
+    return resolve_backspaces(s1) == resolve_backspaces(s2)
+

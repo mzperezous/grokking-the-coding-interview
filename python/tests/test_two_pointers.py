@@ -1,5 +1,6 @@
 from unittest import TestCase
 from src.two_pointers import (
+    backspace_compare,
     dutch_flag_problem,
     pair_with_target_sum, 
     remove_duplicates,
@@ -63,3 +64,8 @@ class TestTwoPointers(TestCase):
         self.assertEqual(quad_sum_to_target([4, 1, 2, -1, 1, -3], 1), [[-3, -1, 1, 4], [-3, 1, 1, 2]])
         self.assertEqual(quad_sum_to_target([2, 0, -1, 1, -2, 2], 2), [[-2, 0, 2, 2], [-1, 0, 1, 2]])
     
+    def test_backspace_compare(self):
+        self.assertEqual(backspace_compare("xy#z", "xzz#"), True)
+        self.assertEqual(backspace_compare("xy#z", "xyz#"), False)
+        self.assertEqual(backspace_compare("xp#", "xyz##"), True)
+        self.assertEqual(backspace_compare("xywrrmp", "xywrrmu#p"), True)
