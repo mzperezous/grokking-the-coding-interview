@@ -2,6 +2,7 @@ from unittest import TestCase
 from src.two_pointers import (
     backspace_compare,
     dutch_flag_problem,
+    minimum_window_sort,
     pair_with_target_sum, 
     remove_duplicates,
     square_sorted,
@@ -69,3 +70,9 @@ class TestTwoPointers(TestCase):
         self.assertEqual(backspace_compare("xy#z", "xyz#"), False)
         self.assertEqual(backspace_compare("xp#", "xyz##"), True)
         self.assertEqual(backspace_compare("xywrrmp", "xywrrmu#p"), True)
+
+    def test_minimum_window_sort(self):
+        self.assertEqual(minimum_window_sort([1, 2, 5, 3, 7, 10, 9, 12]), 5)
+        self.assertEqual(minimum_window_sort([1, 3, 2, 0, -1, 7, 10]), 5)
+        self.assertEqual(minimum_window_sort([1, 2, 3]), 0)
+        self.assertEqual(minimum_window_sort([3, 2, 1]), 3)

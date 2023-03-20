@@ -335,3 +335,43 @@ def backspace_compare(s1: str, s2: str) -> None:
     
     return resolve_backspaces(s1) == resolve_backspaces(s2)
 
+def minimum_window_sort(nums: List[int]):
+    """ Returns the length of the shortest subarray that needs to be sorted in order for the full list to be sorted.
+        Time complexity: O(n)
+        Space complexity: O(1)
+        
+        Post-submission notes: Review, missed edge case
+    """
+
+    l, r = 0, len(nums) - 1
+
+    while r > 0 and nums[r] >= nums[r - 1]:
+        r -= 1
+    while l < len(nums) - 1 and nums[l] <= nums[l + 1]:
+        l += 1
+
+    # Already sorted
+    if l == len(nums) - 1:
+        return 0
+
+    sub_max = None
+    sub_min = None
+
+    # Get minimum and maximums of current subarray
+    for i in range(l, r + 1):
+        if sub_max is None:
+            sub_max = nums[i]
+            sub_min = nums[i]
+            continue
+        sub_max = max(sub_max, nums[i])
+        sub_min = min(sub_min, nums[i])
+
+    # Extend toward beginning w.r.t. sub_min
+    while l > 0 and nums[l - 1] > sub_min:
+        l -= 1
+    # Extend toward end w.r.t. sub_max
+    while r < len(nums) - 1 and nums[r + 1] < sub_max:
+        r += 1
+
+    return r + 1 - l
+        
