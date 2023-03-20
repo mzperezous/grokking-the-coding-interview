@@ -7,7 +7,8 @@ from src.two_pointers import (
     subarrays_product_less_than_target,
     triplet_sum_closest_to_target,
     triplet_sum_to_zero,
-    triplets_with_smaller_sum
+    triplets_with_smaller_sum,
+    quad_sum_to_target
 )
 
 class TestTwoPointers(TestCase):
@@ -57,3 +58,8 @@ class TestTwoPointers(TestCase):
         nums = [2, 2, 0, 1, 2, 0]
         dutch_flag_problem(nums)
         self.assertEqual(nums, sorted(nums))
+
+    def test_quad_sum_to_target(self):
+        self.assertEqual(quad_sum_to_target([4, 1, 2, -1, 1, -3], 1), [[-3, -1, 1, 4], [-3, 1, 1, 2]])
+        self.assertEqual(quad_sum_to_target([2, 0, -1, 1, -2, 2], 2), [[-2, 0, 2, 2], [-1, 0, 1, 2]])
+    

@@ -255,3 +255,42 @@ def dutch_flag_problem(nums: List[int]) -> None:
         else:
             nums[i], nums[first_two] = nums[first_two], nums[i]
             first_two -= 1
+
+
+""" Challenge problems """
+
+def quad_sum_to_target(nums: List[int], target: int) -> List[List[int]]:
+    nums.sort()
+
+    quads = []
+
+    for i in range(len(nums) - 3):
+        val_i = nums[i]
+
+        # Skip duplicates
+        if i > 0 and val_i == nums[i - 1]:
+            continue
+        
+        for j in range(i + 1, len(nums) - 2):
+            val_j = nums[j]
+
+            # Skip duplicates
+            if j > i + 1 and val_j == nums[j - 1]:
+                continue
+        
+            l, r = j + 1, len(nums) - 1
+
+            while r > l:
+                l_val, r_val = nums[l], nums[r]
+                s = val_i + val_j + l_val + r_val
+
+                if s == target:
+                    quads.append([val_i, val_j, l_val, r_val])
+                    l += 1
+                    r -= 1
+                elif s > target:
+                    r -= 1
+                else:
+                    l += 1
+
+    return quads
