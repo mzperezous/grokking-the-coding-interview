@@ -1,5 +1,6 @@
 from unittest import TestCase
 from src.two_pointers import (
+    dutch_flag_problem,
     pair_with_target_sum, 
     remove_duplicates,
     square_sorted,
@@ -48,3 +49,11 @@ class TestTwoPointers(TestCase):
             subarrays_product_less_than_target([8, 2, 6, 5], 50),
             [[8], [8, 2], [2], [2, 6], [6], [6, 5], [5]]
         )
+
+    def test_dutch_flag_problem(self):
+        nums = [1, 0, 2, 1, 0]
+        dutch_flag_problem(nums)
+        self.assertEqual(nums, sorted(nums))
+        nums = [2, 2, 0, 1, 2, 0]
+        dutch_flag_problem(nums)
+        self.assertEqual(nums, sorted(nums))

@@ -229,3 +229,29 @@ def subarrays_product_less_than_target(nums: List[int], target: int) -> List[Lis
         r = l + 1
 
     return subarrays
+
+
+def dutch_flag_problem(nums: List[int]) -> None:
+    """ Sorts an array of numbers (to be treated like objects) in place.
+        Time complexity: O(n)
+        Space complexity: O(1)
+    
+        Post-submission notes: Do this one again
+    """
+
+    l, r = 0, len(nums) - 1
+
+    last_zero, first_two = 0, len(nums) - 1  
+
+    i = 0
+    while i <= first_two:
+        
+        if nums[i] == 0:
+            nums[i], nums[last_zero] = nums[last_zero], nums[i]
+            i += 1
+            last_zero += 1
+        elif nums[i] == 1:
+            i += 1
+        else:
+            nums[i], nums[first_two] = nums[first_two], nums[i]
+            first_two -= 1
