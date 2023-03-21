@@ -69,3 +69,16 @@ def is_magic_number(num: int) -> bool:
             return False
 
     return True
+
+
+def middle_of_linked_list(head: Node) -> Node:
+    p1 = head
+    p2 = head
+
+
+    while p1 is not None and p1.next is not None:
+        p1 = p1.next.next
+        p2 = p2.next
+
+    return p2
+    

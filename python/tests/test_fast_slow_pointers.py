@@ -3,6 +3,7 @@ from src.fast_slow_pointers import (
     find_cycle_start,
     has_cycle,
     is_magic_number,
+    middle_of_linked_list,
     Node
 )
 
@@ -47,3 +48,18 @@ class TestFastSlowPointers(TestCase):
     def test_is_magic_number(self):
         self.assertEqual(is_magic_number(23), True)
         self.assertEqual(is_magic_number(12), False)
+
+    def test_middle_of_linked_list(self):
+        head = Node(1)
+        head.next = Node(2)
+        head.next.next = Node(3)
+        head.next.next.next = Node(4)
+        head.next.next.next.next = Node(5)
+
+        self.assertEqual(middle_of_linked_list(head).value, 3)
+
+        head.next.next.next.next.next = Node(6)
+        self.assertEqual(middle_of_linked_list(head).value, 4)
+
+        head.next.next.next.next.next.next = Node(7)
+        self.assertEqual(middle_of_linked_list(head).value, 4)
