@@ -1,9 +1,19 @@
 """ Provided data structures """
 
 class Node:
-  def __init__(self, value, next=None):
-    self.value = value
-    self.next = next
+    def __init__(self, value, next=None):
+        self.value = value
+        self.next = next
+
+    def print_list(self):
+        temp = self
+        string = ""
+        while temp is not None:
+            print(str(temp.value) + " ", end='')
+            string += str(temp.value) + " "
+            temp = temp.next
+        print()
+        return string.rstrip()
 
 """                          """
 
@@ -117,3 +127,36 @@ def is_palindrome_linked_list(head: Node) -> bool:
 
     reverse(copy)
     return True
+
+def reorder(head: Node) -> None:
+    middle, end = head, head
+
+    def reverse(head: Node):
+        previous = None
+        while head is not None:
+            nxt = head.next
+            head.next = previous
+            previous = head
+            head = nxt
+
+        return previous
+
+    # Find middle
+    while end is not None and end.next is not None:
+        end = end.next.next
+        middle = middle.next
+    
+    head_first_half = head
+    head_second_half = reverse(middle)
+
+    while head_first_half is not None and head_second_half is not None:
+        tmp = head_first_half.next
+        head_first_half.next = head_second_half
+        head_first_half = tmp
+
+        tmp = head_second_half.next
+        head_second_half.next = head_first_half
+        head_second_half = tmp 
+
+    if head_first_half is not None:
+        head_first_half.next = None
