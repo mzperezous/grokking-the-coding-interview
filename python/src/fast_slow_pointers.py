@@ -51,3 +51,21 @@ def find_cycle_start(head: Node) -> Node:
                     curr = curr.next
                 return curr
                 
+def is_magic_number(num: int) -> bool:
+    
+    sum_digits_squared = lambda number: sum(digit ** 2 for digit in map(int, str(number)))
+
+    node = Node(sum_digits_squared(num))
+    pointer = node
+
+    while node.value != 1:
+        node.next = Node(sum_digits_squared(node.value))
+        node.next.next = Node(sum_digits_squared(node.next.value))
+        node = node.next.next
+        pointer = pointer.next
+
+        # Found cycle
+        if node.value == pointer.value and node.value != 1:
+            return False
+
+    return True

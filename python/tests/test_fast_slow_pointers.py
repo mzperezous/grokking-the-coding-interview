@@ -2,6 +2,7 @@ from unittest import TestCase
 from src.fast_slow_pointers import (
     find_cycle_start,
     has_cycle,
+    is_magic_number,
     Node
 )
 
@@ -42,3 +43,7 @@ class TestFastSlowPointers(TestCase):
 
         head.next.next.next.next.next.next = head
         self.assertEqual(find_cycle_start(head).value, 1)
+
+    def test_is_magic_number(self):
+        self.assertEqual(is_magic_number(23), True)
+        self.assertEqual(is_magic_number(12), False)
