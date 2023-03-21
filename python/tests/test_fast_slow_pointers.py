@@ -1,5 +1,6 @@
 from unittest import TestCase
 from src.fast_slow_pointers import (
+    cycle_in_circular_array,
     find_cycle_start,
     has_cycle,
     is_magic_number,
@@ -88,3 +89,8 @@ class TestFastSlowPointers(TestCase):
 
         reorder(head)
         self.assertEqual(str(head.print_list()), "2 12 4 10 6 8")
+
+    def test_cycle_in_circular_array(self):
+        self.assertEqual(cycle_in_circular_array([1, 2, -1, 2, 2]), True)
+        self.assertEqual(cycle_in_circular_array([2, 2, -1, 2]), True)
+        self.assertEqual(cycle_in_circular_array([2, 1, -1, -2]), False)

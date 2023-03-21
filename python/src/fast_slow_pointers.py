@@ -1,3 +1,5 @@
+from typing import List
+
 """ Provided data structures """
 
 class Node:
@@ -160,3 +162,33 @@ def reorder(head: Node) -> None:
 
     if head_first_half is not None:
         head_first_half.next = None
+
+
+def cycle_in_circular_array(nums: List[int]) -> bool:
+
+    slow, fast = 0, 0
+    length = len(nums)
+    first_iteration = True
+
+    while first_iteration or slow != fast:
+        first_iteration = False
+
+        slow = (slow + nums[slow]) % length
+        fast = (fast + nums[fast]) % length
+        fast = (fast + nums[fast]) % length
+
+    is_positive = nums[slow] > 0
+    initial = slow
+    first_iteration = True
+
+    while first_iteration or slow != initial:
+        first_iteration = False
+
+        slow = (slow + nums[slow]) % length
+
+        if is_positive and nums[slow] < 0:
+            return False
+        elif not is_positive and nums[slow] > 0:
+            return False
+        
+    return True
