@@ -1,5 +1,6 @@
 from unittest import TestCase
 from src.sliding_window import (
+    fruits_into_baskets,
     longest_substring_with_lte_k_distinct,
     max_sum_subarray,
     smallest_subarray_with_gte_sum
@@ -20,3 +21,7 @@ class TestSlidingWindow(TestCase):
         self.assertEqual(longest_substring_with_lte_k_distinct("araaci", 2), 4)
         self.assertEqual(longest_substring_with_lte_k_distinct("araaci", 1), 2)
         self.assertEqual(longest_substring_with_lte_k_distinct("cbbebi", 3), 5)
+
+    def test_fruits_into_baskets(self):
+        self.assertEqual(fruits_into_baskets(['A', 'B', 'C', 'A', 'C']), 3)
+        self.assertEqual(fruits_into_baskets(['A', 'B', 'C', 'B', 'B', 'C']), 5)

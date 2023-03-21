@@ -49,3 +49,18 @@ def longest_substring_with_lte_k_distinct(s: str, k: int) -> int:
             max_len = max(max_len, window_end + 1 - window_start)
 
     return max_len
+
+def fruits_into_baskets(fruits: List[str]) -> int:
+    
+    max_fruits, window_start = 1, 0
+
+    for window_end, _ in enumerate(fruits):
+        num_fruits = len(set(fruits[window_start:window_end + 1]))
+
+        if num_fruits <= 2:
+            max_fruits = max(max_fruits, window_end + 1 - window_start)
+        else:
+            while len(set(fruits[window_start:window_end + 1])) > 2:
+                window_start += 1
+
+    return max_fruits
