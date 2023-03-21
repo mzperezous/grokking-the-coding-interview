@@ -1,4 +1,4 @@
-from typing import List
+from typing import Dict, List
 
 def max_sum_subarray(size: int, nums: List[int]) -> int:
 
@@ -107,3 +107,32 @@ def length_of_longest_1s_after_k_substitutions(binary: List[int], k: int) -> int
         max_len = max(max_len, w_end + 1 - w_start)
 
     return max_len
+
+def permutation_in_string(s: str, pattern: str) -> bool:
+    freq = {}
+
+    def check_for_pattern(char_freq: Dict) -> bool:
+        from collections import Counter
+        c = Counter(pattern.lower())
+
+        for char, num in char_freq.items():
+            if num != 0 and  (char not in c or (char in c and num != c[char])):
+                return False
+        return True
+
+    window_start = 0
+    for window_end, char in enumerate(s):
+        char = char.lower()
+
+        if char not in freq:
+            freq[char] = 0
+        freq[char] += 1
+
+        if window_end >= len(pattern) - 1:
+            if check_for_pattern(freq):
+                return True
+            
+            freq[s[window_start]] -= 1
+            window_start += 1
+
+    return False

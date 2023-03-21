@@ -5,6 +5,7 @@ from src.sliding_window import (
     length_of_longest_substring_after_k_substitution,
     longest_substring_with_lte_k_distinct,
     max_sum_subarray,
+    permutation_in_string,
     smallest_subarray_with_gte_sum
 )
 
@@ -36,3 +37,9 @@ class TestSlidingWindow(TestCase):
     def test_length_of_longest_1s_after_k_substitutions(self):
         self.assertEqual(length_of_longest_1s_after_k_substitutions([0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1], 2), 6)
         self.assertEqual(length_of_longest_1s_after_k_substitutions([0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1], 3), 9)
+
+    def test_permutation_in_string(self):
+        self.assertEqual(permutation_in_string("oidbcaf", "ABC"), True)
+        self.assertEqual(permutation_in_string("odicf", "dc"), False)
+        self.assertEqual(permutation_in_string("bcdxabcdy", "bcdyabcdx"), True)
+        self.assertEqual(permutation_in_string("aaacb", "abc"), True)
