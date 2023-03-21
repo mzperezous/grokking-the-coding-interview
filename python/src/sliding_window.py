@@ -64,3 +64,46 @@ def fruits_into_baskets(fruits: List[str]) -> int:
                 window_start += 1
 
     return max_fruits
+
+def length_of_longest_substring_after_k_substitution(s: str, k: int) -> int:
+    import operator
+
+    freq = {}
+    w_start, max_len = 0, 0
+
+    for w_end, char in enumerate(s):
+        if char not in freq:
+            freq[char] = 0
+        freq[char] += 1
+
+        main = max(freq.items(), key=operator.itemgetter(1))[0]
+        others = sum(freq[char] for char in freq if char != main)
+
+        if others <= k:
+            max_len = max(max_len, w_end + 1 - w_start)
+        else:
+            while others > k and w_end >= w_start:
+                freq[s[w_start]] -= 1
+                w_start += 1
+                main = max(freq.items(), key=operator.itemgetter(1))[0]
+                others = sum(freq[char] for char in freq if char != main)
+
+    return max_len
+
+def length_of_longest_1s_after_k_substitutions(binary: List[int], k: int) -> int:
+
+    w_start, num_zeros, max_len = 0, 0, 0
+
+    for w_end, digit in enumerate(binary):
+        if digit == 0:
+            num_zeros += 1
+        
+        while num_zeros > k:
+            if binary[w_start] == 0:
+                num_zeros -= 1
+            
+            w_start += 1
+
+        max_len = max(max_len, w_end + 1 - w_start)
+
+    return max_len
