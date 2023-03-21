@@ -182,13 +182,17 @@ def cycle_in_circular_array(nums: List[int]) -> bool:
     first_iteration = True
 
     while first_iteration or slow != initial:
-        first_iteration = False
-
         slow = (slow + nums[slow]) % length
+
+        # One element cycle != cycle
+        if first_iteration and slow == initial:
+            return False
 
         if is_positive and nums[slow] < 0:
             return False
         elif not is_positive and nums[slow] > 0:
             return False
+        
+        first_iteration = False
         
     return True
