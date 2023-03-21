@@ -37,14 +37,14 @@ def smallest_subarray_with_gte_sum(s: int, nums: List[int]) -> int:
     return min_len
 
 def longest_substring_with_lte_k_distinct(s: str, k: int) -> int:
-    max_len = 0
+    max_len, window_start = 0, 0
 
-    window_start = 0
-    for window_end, char in enumerate(s):
+    for window_end, _ in enumerate(s):
         num_distinct = len(set(s[window_start:window_end+1]))
 
         if num_distinct > k:
-            window_start += 1
+            while len(set(s[window_start:window_end + 1])) > k and window_start <= window_end:
+                window_start += 1
         else:
             max_len = max(max_len, window_end + 1 - window_start)
 
