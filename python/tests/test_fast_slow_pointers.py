@@ -3,6 +3,7 @@ from src.fast_slow_pointers import (
     find_cycle_start,
     has_cycle,
     is_magic_number,
+    is_palindrome_linked_list,
     middle_of_linked_list,
     Node
 )
@@ -63,3 +64,15 @@ class TestFastSlowPointers(TestCase):
 
         head.next.next.next.next.next.next = Node(7)
         self.assertEqual(middle_of_linked_list(head).value, 4)
+
+    def test_is_palindrome_linked_list(self):
+        head = Node(2)
+        head.next = Node(4)
+        head.next.next = Node(6)
+        head.next.next.next = Node(4)
+        head.next.next.next.next = Node(2)
+
+        self.assertEqual(is_palindrome_linked_list(head), True)
+
+        head.next.next.next.next.next = Node(2)
+        self.assertEqual(is_palindrome_linked_list(head), False)

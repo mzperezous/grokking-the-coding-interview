@@ -82,3 +82,38 @@ def middle_of_linked_list(head: Node) -> Node:
 
     return p2
     
+
+def is_palindrome_linked_list(head: Node) -> bool:
+    """ Review this one """
+
+    def reverse(head: Node):
+        previous = None
+        while head is not None:
+            nxt = head.next
+            head.next = previous
+            previous = head
+            head = nxt
+
+        return previous
+    
+    fast, slow = head, head
+
+    # Find middle
+    while fast is not None and fast.next is not None:
+        slow = slow.next
+        fast = fast.next.next
+
+    reversed_second_half = reverse(slow)
+
+    copy = reversed_second_half
+
+    while head is not None and reversed_second_half is not None:
+        if head.value != reversed_second_half.value:
+            reverse(copy)
+            return False
+        
+        head = head.next
+        reversed_second_half = reversed_second_half.next
+
+    reverse(copy)
+    return True
