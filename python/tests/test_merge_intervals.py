@@ -1,5 +1,6 @@
 from unittest import TestCase
 from src.merge_intervals import (
+    has_conflicting_appointments,
     insert,
     intersection,
     Interval,
@@ -26,3 +27,9 @@ class TestMergeIntervals(TestCase):
             [Interval(1, 3), Interval(5, 7), Interval(9, 12)], 
             [Interval(5, 10)])
         )), ["[5, 7]", "[9, 10]"])
+
+    def test_has_conflicting_appointments(self):
+        self.assertEqual(has_conflicting_appointments([Interval(1, 4), Interval(2, 5), Interval(7, 9)]), True)
+        self.assertEqual(has_conflicting_appointments([Interval(6, 7), Interval(2, 4), Interval(8, 12)]), False)
+        self.assertEqual(has_conflicting_appointments([Interval(4, 5), Interval(2, 3), Interval(3, 6)]), True)
+        

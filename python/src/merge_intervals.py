@@ -76,9 +76,19 @@ def intersection(l1: List[Interval], l2: List[Interval]) -> List[Interval]:
             end = min(interval_1.end, interval_2.end)
             result.append(Interval(start, end))
 
-            if end == interval_1.end:
+            if end == interval_1.end:  # interval_1.end < interval_2.end
                 i += 1
             else:
                 j += 1
 
     return result
+
+def has_conflicting_appointments(appts: List[Interval]):
+    
+    appts.sort(key=lambda x: x.start)
+
+    for i in range(1, len(appts)):
+        if appts[i - 1].end > appts[i].start:
+            return True
+
+    return False
