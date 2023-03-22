@@ -109,30 +109,30 @@ def length_of_longest_1s_after_k_substitutions(binary: List[int], k: int) -> int
     return max_len
 
 def permutation_in_string(s: str, pattern: str) -> bool:
-    freq = {}
+    from collections import Counter
 
-    def check_for_pattern(char_freq: Dict) -> bool:
-        from collections import Counter
-        c = Counter(pattern.lower())
+    frequency = dict(Counter(pattern.lower()))
 
-        for char, num in char_freq.items():
-            if num != 0 and  (char not in c or (char in c and num != c[char])):
-                return False
-        return True
-
-    window_start = 0
+    window_start, matched = 0, 0
     for window_end, char in enumerate(s):
-        char = char.lower()
+        # This character matches our pattern, mark it
+        if char in frequency:
+            frequency[char] -= 1
+            if frequency[char] == 0:
+                matched += 1
 
-        if char not in freq:
-            freq[char] = 0
-        freq[char] += 1
-
+        # We've found all of the matched characters
+        if matched == len(frequency):
+            return True
+        
+        # If we didn't return and our window is big enough, 
+        #   slide it and reset our checks on s[window_start]
         if window_end >= len(pattern) - 1:
-            if check_for_pattern(freq):
-                return True
-            
-            freq[s[window_start]] -= 1
+            left_char = s[window_start]
             window_start += 1
+            if left_char in frequency:
+                if frequency[left_char] == 0:
+                    matched -= 1
+                frequency[left_char] += 1
 
     return False
