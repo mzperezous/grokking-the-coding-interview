@@ -4,6 +4,8 @@ from src.merge_intervals import (
     insert,
     intersection,
     Interval,
+    Job,
+    max_cpu_load,
     Meeting,
     merge,
     minimum_meeting_rooms
@@ -40,3 +42,8 @@ class TestMergeIntervals(TestCase):
         self.assertEqual(minimum_meeting_rooms([Meeting(6, 7), Meeting(2, 4), Meeting(8, 12)]), 1)
         self.assertEqual(minimum_meeting_rooms([Meeting(1, 4), Meeting(2, 3), Meeting(3, 6)]), 2)
         self.assertEqual(minimum_meeting_rooms([Meeting(4, 5), Meeting(2, 3), Meeting(2, 4), Meeting(3, 5)]), 2)
+
+    def test_max_cpu_load(self):
+        self.assertEqual(max_cpu_load([Job(1, 4, 3), Job(2, 5, 4), Job(7, 9, 6)]), 7)
+        self.assertEqual(max_cpu_load([Job(6, 7, 10), Job(2, 4, 11), Job(8, 12, 15)]), 15)
+        self.assertEqual(max_cpu_load([Job(1, 4, 2), Job(2, 4, 1), Job(3, 6, 5)]), 8)
