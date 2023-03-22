@@ -7,7 +7,8 @@ from src.sliding_window import (
     longest_substring_with_lte_k_distinct,
     max_sum_subarray,
     permutation_in_string,
-    smallest_subarray_with_gte_sum
+    smallest_subarray_with_gte_sum,
+    smallest_window_containing_substring
 )
 
 class TestSlidingWindow(TestCase):
@@ -49,3 +50,5 @@ class TestSlidingWindow(TestCase):
         self.assertEqual(anagrams_in_string("ppqp", "pq"), [1, 2])
         self.assertEqual(anagrams_in_string("abbcabc", "abc"), [2, 3, 4])
     
+    def test_smallest_window_containing_substring(self):
+        self.assertEqual(smallest_window_containing_substring("aabdec", "abc"), "abdec")

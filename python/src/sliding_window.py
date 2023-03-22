@@ -145,8 +145,6 @@ def anagrams_in_string(s: str, pattern: str) -> List[int]:
     for char in pattern:
         frequency[char] += 1
 
-    print(frequency)
-
     anagram_indices = []
     start, matched = 0, 0
     for end, char in enumerate(s):
@@ -173,3 +171,37 @@ def anagrams_in_string(s: str, pattern: str) -> List[int]:
             start += 1
 
     return anagram_indices
+
+def smallest_window_containing_substring(s: str, pattern: str) -> str:
+
+    frequency = {char: 0 for char in pattern}
+    for char in pattern:
+        frequency[char] += 1
+    
+    start, matched, sub_start = 0, 0, 0
+    min_length = len(s) + 1
+    for end, char in enumerate(s):
+
+        if char in frequency:
+            frequency[char] -= 1
+            if frequency[char] == 0:
+                matched += 1
+
+        while matched == len(pattern):
+            if min_length > end + 1 - start:
+                min_length = end + 1 - start
+                sub_start = start
+
+            left = s[start]
+
+            if left in frequency:
+
+                if frequency[left] == 0:
+                    matched -= 1
+                frequency[left] += 1
+            
+            start += 1
+
+    if min_length > len(s):
+        return ""
+    return s[sub_start:sub_start + min_length]
