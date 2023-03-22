@@ -127,6 +127,7 @@ class Job(Interval):
         self.load = load
         
 def max_cpu_load(jobs: List[Job]) -> int:
+    """ Review minheap solution """
     
     max_load = jobs[0].load
     load_track = 0
