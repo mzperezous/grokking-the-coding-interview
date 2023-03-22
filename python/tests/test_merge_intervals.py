@@ -1,5 +1,6 @@
 from unittest import TestCase
 from src.merge_intervals import (
+    employee_free_time,
     has_conflicting_appointments,
     insert,
     intersection,
@@ -47,3 +48,17 @@ class TestMergeIntervals(TestCase):
         self.assertEqual(max_cpu_load([Job(1, 4, 3), Job(2, 5, 4), Job(7, 9, 6)]), 7)
         self.assertEqual(max_cpu_load([Job(6, 7, 10), Job(2, 4, 11), Job(8, 12, 15)]), 15)
         self.assertEqual(max_cpu_load([Job(1, 4, 2), Job(2, 4, 1), Job(3, 6, 5)]), 8)
+
+    def test_employee_free_time(self):
+        self.assertEqual(
+            list(map(str, employee_free_time([[Interval(1, 3), Interval(5, 6)], [Interval(2, 3), Interval(5, 6)]]))),
+            ["[3, 5]"]
+        )
+        self.assertEqual(
+            list(map(str, employee_free_time([[Interval(1, 3), Interval(9, 12)], [Interval(2, 4)], [Interval(6, 8)]]))),
+            ["[4, 6]", "[8, 9]"]
+        )
+        self.assertEqual(
+            list(map(str, employee_free_time([[Interval(1, 3)], [Interval(2, 4)], [Interval(3, 5), Interval(7, 9)]]))),
+            ["[5, 7]"]
+        )

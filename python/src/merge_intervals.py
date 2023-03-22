@@ -152,3 +152,42 @@ def max_cpu_load(jobs: List[Job]) -> int:
             first_overlap = True
 
     return max(max_load, load_track)
+
+class EmployeeInterval(Interval):
+
+    def __init__(self, start, end, id, index):
+        super().__init__(start, end)
+        self.id = id
+        self.index = index
+
+    def __lt__(self, other):
+        return self.start < other.start
+
+def employee_free_time(schedule: List[List[Interval]]) -> List[Interval]:
+    """ DEFINITELY REVIEW THIS ONE """
+    
+    from heapq import heappop, heappush
+    
+    num_employees = len(schedule)
+    result, min_heap = [], []
+
+    for i in range(num_employees):
+        first_shift = schedule[i][0]
+        heappush(min_heap, EmployeeInterval(first_shift.start, first_shift.end, i, 0))
+
+    prev_interval = min_heap[0]
+    while min_heap:
+        top = heappop(min_heap)
+
+        if prev_interval.end < top.start:
+            result.append(Interval(prev_interval.end, top.start))
+            prev_interval = top
+        elif prev_interval.end < top.end:
+            prev_interval = top
+
+        if len(schedule[top.id]) > top.index + 1:
+            shift = schedule[top.id][top.index + 1]
+            heappush(min_heap, EmployeeInterval(shift.start, shift.end, top.id, top.index + 1))
+
+
+    return result
