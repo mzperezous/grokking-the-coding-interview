@@ -188,7 +188,6 @@ def smallest_window_containing_substring(s: str, pattern: str) -> str:
                 matched += 1
 
         while matched == len(pattern):
-            print("here")
             if min_length > end + 1 - start:
                 min_length = end + 1 - start
                 sub_start = start
