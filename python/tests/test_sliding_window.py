@@ -1,5 +1,6 @@
 from unittest import TestCase
 from src.sliding_window import (
+    anagrams_in_string,
     fruits_into_baskets,
     length_of_longest_1s_after_k_substitutions,
     length_of_longest_substring_after_k_substitution,
@@ -43,3 +44,8 @@ class TestSlidingWindow(TestCase):
         self.assertEqual(permutation_in_string("odicf", "dc"), False)
         self.assertEqual(permutation_in_string("bcdxabcdy", "bcdyabcdx"), True)
         self.assertEqual(permutation_in_string("aaacb", "abc"), True)
+
+    def test_anagrams_in_string(self):
+        self.assertEqual(anagrams_in_string("ppqp", "pq"), [1, 2])
+        self.assertEqual(anagrams_in_string("abbcabc", "abc"), [2, 3, 4])
+    

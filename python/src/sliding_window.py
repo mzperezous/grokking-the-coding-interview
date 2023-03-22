@@ -136,3 +136,40 @@ def permutation_in_string(s: str, pattern: str) -> bool:
                 frequency[left_char] += 1
 
     return False
+
+def anagrams_in_string(s: str, pattern: str) -> List[int]:
+    """ Returns starting indices of the anagrams. """
+
+    frequency = {char: 0 for char in pattern}
+
+    for char in pattern:
+        frequency[char] += 1
+
+    print(frequency)
+
+    anagram_indices = []
+    start, matched = 0, 0
+    for end, char in enumerate(s):
+
+        if char in frequency:
+            frequency[char] -= 1
+
+            if frequency[char] == 0:
+                matched += 1
+
+        if matched == len(frequency):
+            anagram_indices.append(start)
+
+
+        if end >= len(pattern) - 1:
+            left_char = s[start]
+
+            if left_char in frequency:
+                frequency[left_char] += 1
+
+                if frequency[left_char] != 0:
+                    matched -= 1
+
+            start += 1
+
+    return anagram_indices
