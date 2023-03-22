@@ -184,16 +184,16 @@ def smallest_window_containing_substring(s: str, pattern: str) -> str:
 
         if char in frequency:
             frequency[char] -= 1
-            if frequency[char] == 0:
+            if frequency[char] >= 0:
                 matched += 1
 
         while matched == len(pattern):
+            print("here")
             if min_length > end + 1 - start:
                 min_length = end + 1 - start
                 sub_start = start
 
             left = s[start]
-
             if left in frequency:
 
                 if frequency[left] == 0:
@@ -205,3 +205,35 @@ def smallest_window_containing_substring(s: str, pattern: str) -> str:
     if min_length > len(s):
         return ""
     return s[sub_start:sub_start + min_length]
+
+def find_word_concatenation(s: str, words: List[str]) -> str:
+    
+    if len(words) == 0 or len(words[0]) == 0:
+        return []
+
+    word_freq = { word: 0 for word in words }
+    for word in words:
+        word_freq[word] += 1
+
+    result = []
+    words_count = len(words)
+    word_length = len(words[0])
+
+    for i in range((len(s) - words_count * word_length) + 1):
+        seen_count = { word: 0 for word in words }
+
+        for j in range(words_count):
+            word_idx = i + j * word_length
+            word = s[word_idx:word_idx + word_length]
+
+            if word not in word_freq:
+                break
+            seen_count[word] += 1
+
+            if seen_count[word] > word_freq[word]:
+                break
+
+            if j + 1 == words_count:
+                result.append(i)
+
+    return result

@@ -1,6 +1,7 @@
 from unittest import TestCase
 from src.sliding_window import (
     anagrams_in_string,
+    find_word_concatenation,
     fruits_into_baskets,
     length_of_longest_1s_after_k_substitutions,
     length_of_longest_substring_after_k_substitution,
@@ -52,3 +53,10 @@ class TestSlidingWindow(TestCase):
     
     def test_smallest_window_containing_substring(self):
         self.assertEqual(smallest_window_containing_substring("aabdec", "abc"), "abdec")
+        self.assertEqual(smallest_window_containing_substring("aabdec", "abac"), "aabdec")
+        self.assertEqual(smallest_window_containing_substring("abdbca", "abc"), "bca")
+        self.assertEqual(smallest_window_containing_substring("adcad", "abc"), "")
+
+    def test_find_word_concatenation(self):
+        self.assertEqual(find_word_concatenation("catfoxcat", ["cat", "fox"]), [0, 3])
+        self.assertEqual(find_word_concatenation("catcatfoxfox", ["cat", "fox"]), [3])
