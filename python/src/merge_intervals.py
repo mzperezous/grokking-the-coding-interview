@@ -31,3 +31,25 @@ def merge(intervals: List[Interval]) -> List[Interval]:
 
     merged.append(Interval(start, end))
     return merged
+
+def insert(intervals: List[Interval], new: Interval) -> List[Interval]:
+
+    merged, i = [], 0
+
+    # Skip over non overlapping intervals and log them
+    while i < len(intervals) and new.start > intervals[i].end:
+        merged.append(intervals[i])
+        i += 1
+
+    # Merge overlapping intervals
+    while i < len(intervals) and intervals[i].start <= new.end:
+        new.start = min(intervals[i].start, new.start)
+        new.end = max(intervals[i].end, new.end)
+        i += 1
+
+    merged.append(new)
+
+    while i < len(intervals):
+        merged.append(intervals[i])
+        i += 1
+    return merged
