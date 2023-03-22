@@ -4,7 +4,9 @@ from src.merge_intervals import (
     insert,
     intersection,
     Interval,
-    merge
+    Meeting,
+    merge,
+    minimum_meeting_rooms
 )
 
 class TestMergeIntervals(TestCase):
@@ -32,4 +34,9 @@ class TestMergeIntervals(TestCase):
         self.assertEqual(has_conflicting_appointments([Interval(1, 4), Interval(2, 5), Interval(7, 9)]), True)
         self.assertEqual(has_conflicting_appointments([Interval(6, 7), Interval(2, 4), Interval(8, 12)]), False)
         self.assertEqual(has_conflicting_appointments([Interval(4, 5), Interval(2, 3), Interval(3, 6)]), True)
-        
+
+    def test_minimum_meeting_rooms(self):
+        self.assertEqual(minimum_meeting_rooms([Meeting(1, 4), Meeting(2, 5), Meeting(7, 9)]), 2)
+        self.assertEqual(minimum_meeting_rooms([Meeting(6, 7), Meeting(2, 4), Meeting(8, 12)]), 1)
+        self.assertEqual(minimum_meeting_rooms([Meeting(1, 4), Meeting(2, 3), Meeting(3, 6)]), 2)
+        self.assertEqual(minimum_meeting_rooms([Meeting(4, 5), Meeting(2, 3), Meeting(2, 4), Meeting(3, 5)]), 2)

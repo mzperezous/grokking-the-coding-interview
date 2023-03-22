@@ -9,6 +9,11 @@ class Interval:
 
     def __str__(self):
         return "[" + str(self.start) + ", " + str(self.end) + "]"
+    
+class Meeting(Interval):
+    def __lt__(self, other):
+        # min heap based on meeting.end
+        return self.end < other.end
 
 """                                """
 
@@ -83,7 +88,7 @@ def intersection(l1: List[Interval], l2: List[Interval]) -> List[Interval]:
 
     return result
 
-def has_conflicting_appointments(appts: List[Interval]):
+def has_conflicting_appointments(appts: List[Interval]) -> bool:
     
     appts.sort(key=lambda x: x.start)
 
@@ -92,3 +97,27 @@ def has_conflicting_appointments(appts: List[Interval]):
             return True
 
     return False
+
+""" Challenge Problems """
+
+def minimum_meeting_rooms(meetings: List[Meeting]) -> int:
+    """ Review this one """
+
+    from heapq import heappop, heappush
+    
+    if len(meetings) == 0:
+        return 0
+    
+    rooms = 1
+    min_heap = []
+
+    meetings.sort(key=lambda x: x.start)
+
+    for meeting in meetings:
+        while len(min_heap) > 0 and meeting.start >= min_heap[0].end:
+            heappop(min_heap)
+        heappush(min_heap, meeting)
+        rooms = max(rooms, len(min_heap))
+
+    return rooms
+        
