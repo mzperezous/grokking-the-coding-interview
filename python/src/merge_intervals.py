@@ -53,3 +53,32 @@ def insert(intervals: List[Interval], new: Interval) -> List[Interval]:
         merged.append(intervals[i])
         i += 1
     return merged
+
+def intersection(l1: List[Interval], l2: List[Interval]) -> List[Interval]:
+    result = []
+
+    i, j = 0, 0
+    start, end = None, None
+
+    while i < len(l1) and j < len(l2):
+        interval_1, interval_2 = l1[i], l2[j]
+
+        # No overlaps
+        if interval_1.end < interval_2.start:
+            i += 1
+            continue
+        elif interval_2.end < interval_1.start:
+            j += 1
+            continue
+        # Overlaps
+        else:
+            start = max(interval_1.start, interval_2.start)
+            end = min(interval_1.end, interval_2.end)
+            result.append(Interval(start, end))
+
+            if end == interval_1.end:
+                i += 1
+            else:
+                j += 1
+
+    return result

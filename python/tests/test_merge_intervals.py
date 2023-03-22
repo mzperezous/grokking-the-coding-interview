@@ -1,6 +1,7 @@
 from unittest import TestCase
 from src.merge_intervals import (
     insert,
+    intersection,
     Interval,
     merge
 )
@@ -15,3 +16,13 @@ class TestMergeIntervals(TestCase):
         self.assertEqual(list(map(str, insert([Interval(1, 3), Interval(5, 7), Interval(8, 12)], Interval(4, 6)))), ["[1, 3]", "[4, 7]", "[8, 12]"])
         self.assertEqual(list(map(str, insert([Interval(1, 3), Interval(5, 7), Interval(8, 12)], Interval(4, 10)))), ["[1, 3]", "[4, 12]"])
         self.assertEqual(list(map(str, insert([Interval(2, 3), Interval(5, 7)], Interval(1, 4)))), ["[1, 4]", "[5, 7]"])
+    
+    def test_intersection(self):
+        self.assertEqual(list(map(str, intersection(
+            [Interval(1, 3), Interval(5, 6), Interval(7, 9)], 
+            [Interval(2, 3), Interval(5, 7)])
+        )), ["[2, 3]", "[5, 6]", "[7, 7]"])
+        self.assertEqual(list(map(str, intersection(
+            [Interval(1, 3), Interval(5, 7), Interval(9, 12)], 
+            [Interval(5, 10)])
+        )), ["[5, 7]", "[9, 10]"])
