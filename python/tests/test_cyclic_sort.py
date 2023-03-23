@@ -1,9 +1,12 @@
 from unittest import TestCase
 from src.cyclic_sort import (
     cyclic_sort,
+    find_all_duplicates,
     find_all_missing_numbers,
+    find_corrupt_pair,
     find_duplicate,
-    find_missing_number
+    find_missing_number,
+    find_smallest_missing_positive_num
 )
 
 
@@ -28,3 +31,16 @@ class TestCyclicSort(TestCase):
         self.assertEqual(find_duplicate([2, 1, 3, 3, 5, 4]), 3)
         self.assertEqual(find_duplicate([2, 4, 1, 4, 4]), 4)
     
+    def test_find_all_duplicates(self):
+        self.assertCountEqual(find_all_duplicates([3, 4, 4, 5, 5]), [4, 5])
+        self.assertCountEqual(find_all_duplicates([5, 4, 7, 2, 3, 5, 3]), [3, 5])
+
+    def test_find_corrupt_pair(self):
+        self.assertEqual(find_corrupt_pair([3, 1, 2, 5, 2]), [2, 4])
+        self.assertEqual(find_corrupt_pair([3, 1, 2, 3, 6, 4]), [3, 5])
+
+    def test_find_smallest_missing_positive_num(self):
+        self.assertEqual(find_smallest_missing_positive_num([-3, 1, 5, 4, 2]), 3)
+        self.assertEqual(find_smallest_missing_positive_num([3, -2, 0, 1, 2]), 4)
+        self.assertEqual(find_smallest_missing_positive_num([3, 2, 5, 1]), 4)
+        self.assertEqual(find_smallest_missing_positive_num([33, 37, 5]), 1)
