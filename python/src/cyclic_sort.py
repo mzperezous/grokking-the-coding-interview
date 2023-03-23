@@ -34,7 +34,7 @@ def find_missing_number(nums: List[int]) -> int:
 
 def find_all_missing_numbers(nums: List[int]) -> List[int]:
     
-    i, n = 0, len(nums)
+    i = 0
     missing = []
 
     while i < len(nums):
@@ -49,3 +49,20 @@ def find_all_missing_numbers(nums: List[int]) -> List[int]:
             missing.append(i + 1)
         
     return missing
+
+def find_duplicate(nums: List[int]) -> int:
+    
+    i = 0
+
+    while i < len(nums):
+        val = nums[i]
+
+        if val != i + 1 and val != nums[val - 1]:
+            nums[i], nums[val - 1] = nums[val - 1], nums[i]
+        else:
+            i += 1
+
+    for i, val in enumerate(nums):
+        if i + 1 != val:
+            return val
+    
