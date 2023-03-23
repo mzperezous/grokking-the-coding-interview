@@ -5,6 +5,7 @@ from src.cyclic_sort import (
     find_all_missing_numbers,
     find_corrupt_pair,
     find_duplicate,
+    find_k_missing_positive_numbers,
     find_missing_number,
     find_smallest_missing_positive_num
 )
@@ -44,3 +45,8 @@ class TestCyclicSort(TestCase):
         self.assertEqual(find_smallest_missing_positive_num([3, -2, 0, 1, 2]), 4)
         self.assertEqual(find_smallest_missing_positive_num([3, 2, 5, 1]), 4)
         self.assertEqual(find_smallest_missing_positive_num([33, 37, 5]), 1)
+
+    def test_find_k_missing_positive_numbers(self):
+        self.assertEqual(find_k_missing_positive_numbers([3, -1, 4, 5, 5], 3), [1, 2, 6])
+        self.assertEqual(find_k_missing_positive_numbers([2, 3, 4], 3), [1, 5, 6])
+        self.assertEqual(find_k_missing_positive_numbers([-2, -3, 4], 2), [1, 2])

@@ -128,3 +128,36 @@ def find_smallest_missing_positive_num(nums: List[int]) -> int:
             min_missing += 1
 
     return min_missing
+
+def find_k_missing_positive_numbers(nums: List[int], k: int) -> List[int]:
+    """     Review this one a bit   """
+    
+    i, k_missing = 0, []
+
+    # Cyclic sort
+    while i < len(nums):
+        val = nums[i]
+
+        if val > 0 and val <= len(nums) and val != i + 1 and nums[i] != nums[val - 1]:
+            nums[i], nums[val - 1] = nums[val - 1], nums[i]
+        else:
+            i += 1
+
+    overflow = set()
+    # Find the numbers missing from the range of the length of the list
+    for i, val in enumerate(nums):
+        if val != i + 1:
+            k_missing.append(i + 1)
+            overflow.add(val)
+
+        if len(k_missing) == k:
+            return k_missing
+
+    # Find the missing numbers outside of the range of the list
+    candidate = 1 + len(nums)
+    while len(k_missing) < k:
+        if candidate not in overflow:
+            k_missing.append(candidate)
+        candidate += 1
+
+    return k_missing
