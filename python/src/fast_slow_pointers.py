@@ -11,10 +11,8 @@ class Node:
         temp = self
         string = ""
         while temp is not None:
-            print(str(temp.value) + " ", end='')
             string += str(temp.value) + " "
             temp = temp.next
-        print()
         return string.rstrip()
 
 """                          """
