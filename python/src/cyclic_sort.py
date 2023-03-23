@@ -31,3 +31,21 @@ def find_missing_number(nums: List[int]) -> int:
             return i
 
     return n
+
+def find_all_missing_numbers(nums: List[int]) -> List[int]:
+    
+    i, n = 0, len(nums)
+    missing = []
+
+    while i < len(nums):
+        val = nums[i]
+        if val != i + 1 and nums[i] != nums[val - 1]:
+            nums[i], nums[val - 1] = nums[val - 1], nums[i]
+        else:
+            i += 1
+
+    for i, val in enumerate(nums):
+        if val != i + 1:
+            missing.append(i + 1)
+        
+    return missing

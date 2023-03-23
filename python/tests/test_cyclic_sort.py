@@ -1,6 +1,7 @@
 from unittest import TestCase
 from src.cyclic_sort import (
     cyclic_sort,
+    find_all_missing_numbers,
     find_missing_number
 )
 
@@ -15,3 +16,10 @@ class TestCyclicSort(TestCase):
     def test_find_missing_number(self):
         self.assertEqual(find_missing_number([4, 0, 3, 1]), 2)
         self.assertEqual(find_missing_number([8, 3, 5, 2, 4, 6, 0, 1]), 7)
+
+    def test_find_all_missing_numbers(self):
+        self.assertEqual(find_all_missing_numbers([2, 3, 1, 8, 2, 3, 5, 1]), [4, 6, 7])
+        self.assertEqual(find_all_missing_numbers([2, 4, 1, 2]), [3])
+        self.assertEqual(find_all_missing_numbers([2, 3, 2, 1]), [4])
+
+    
