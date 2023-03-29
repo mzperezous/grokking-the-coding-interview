@@ -114,3 +114,49 @@ def rotate_linked_list(head: Node, k: int) -> Node:
     head = last_node_of_rotation.next
     last_node_of_rotation.next = None
     return head
+
+
+def reverse_alternate_k_elements(head: Node, k: int) -> Node:
+
+    if k <= 1:
+        return head
+
+    curr, prev = head, None
+    first_nodes, last_nodes = [], []
+    rotate = True
+
+    # Perform the rotations
+    while curr is not None:
+
+        if rotate:
+            last_nodes.append(curr)
+        else:
+            first_nodes.append(curr)
+        
+        for i in range(k):
+            if curr is None:
+                break
+            if curr.next is None or i == k - 1:
+                if rotate:
+                    first_nodes.append(curr)
+                else:
+                    last_nodes.append(curr)
+            
+            next = curr.next
+            if rotate:
+                curr.next = prev
+            prev = curr
+            curr = next
+
+        rotate = not rotate
+
+
+    # Link the sublists
+    head = first_nodes[0]
+    for i, last_node in enumerate(last_nodes):
+        if i == len(last_nodes) - 1:
+            last_node.next = None
+        else:
+            last_node.next = first_nodes[i + 1]
+
+    return head
