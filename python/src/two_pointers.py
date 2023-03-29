@@ -68,7 +68,7 @@ def square_sorted(nums: List[int]) -> List[int]:
         l_squared, r_squared = nums[l] ** 2, nums[r] ** 2
         if l == r:
             squared_nums[curr_idx] = l_squared
-            curr_idx -= 1
+            break
         elif l_squared == r_squared:
             squared_nums[curr_idx] = l_squared
             squared_nums[curr_idx - 1] = r_squared

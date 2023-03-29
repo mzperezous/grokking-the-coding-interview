@@ -33,17 +33,13 @@ def count_islands(matrix: List[List[int]]) -> int:
 
 
     for j, row in enumerate(matrix):
-        i = 0
-
-        while i < len(row):
-            if matrix[j][i] == 0:
-                i += 1
+        for i, val in enumerate(row):
+            if val == 0:
                 seen.add((i, j))
             else:
                 if (i, j) not in seen:
                     islands += 1
                     search_from_node_dfs((i, j), matrix, seen)
-                i += 1
 
     return islands
             
