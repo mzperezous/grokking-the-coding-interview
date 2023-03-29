@@ -35,7 +35,7 @@ def reverse_sublist(head: Node, p: int, q: int) -> Node:
     i = 0
     curr, prev = head, None
 
-    while head is not None and i < p - 1:
+    while curr is not None and i < p - 1:
         prev = curr
         curr = curr.next
         i += 1
@@ -57,4 +57,60 @@ def reverse_sublist(head: Node, p: int, q: int) -> Node:
     return head
 
 def reverse_k_element_sublists(head: Node, k: int) -> Node:
-    ...
+    
+    if k <= 1:
+        return head
+    curr, prev = head, None
+
+    last_nodes_of_sublist = []
+    first_nodes_of_sublist = []
+
+    while curr is not None:
+        i = 0
+
+        last_nodes_of_sublist.append(curr)
+
+        # Iterate over each sublist
+        for i in range(k):
+            if curr is None:
+                break
+            if curr.next is None or i == k - 1:
+                first_nodes_of_sublist.append(curr)
+
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+
+    # Link all of the sublists
+    for i, end_node in enumerate(last_nodes_of_sublist):
+        if i == len(last_nodes_of_sublist) - 1:
+            end_node.next = None
+        else:
+            end_node.next = first_nodes_of_sublist[i + 1]
+
+    return first_nodes_of_sublist[0]
+
+
+def rotate_linked_list(head: Node, k: int) -> Node:
+    """ Rotate the list by k nodes """
+
+    if head is None or head.next is None or k <= 0:
+        return head
+
+    # Find the length and last node
+    list_length, last_node = 1, head
+    while last_node.next is not None:
+        list_length += 1
+        last_node = last_node.next
+
+    # Find last node of the sublist to be moved to the end
+    last_node.next = head
+    k %= list_length
+    last_node_of_rotation = head
+    for _ in range(list_length - k - 1):
+        last_node_of_rotation = last_node_of_rotation.next
+    
+    head = last_node_of_rotation.next
+    last_node_of_rotation.next = None
+    return head
