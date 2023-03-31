@@ -69,6 +69,9 @@ def sum_of_path_numbers(root: TreeNode):
 
 
 def has_path_with_given_sequence(root: TreeNode, sequence: List[int]) -> bool:
+    """
+        Post-submission: This is any path. The problem asked for root-to-leaf, which was realized after.
+    """
     if root is None:
         return len(sequence) == 0
     
@@ -92,3 +95,28 @@ def has_path_with_given_sequence(root: TreeNode, sequence: List[int]) -> bool:
         return True
     
     return check_path(root, [])
+
+def count_paths_for_sum(root: TreeNode, goal: int) -> int:
+
+    def count_paths(node: TreeNode, curr_path: List[int]) -> int:
+        if node is None:
+            return 0
+
+        curr_path.append(node.val)
+
+        path_count, path_sum = 0, 0
+        for i in range(len(curr_path) - 1, -1, -1):
+            path_sum += curr_path[i]
+
+            if path_sum == goal:
+                path_count += 1
+            elif path_sum > goal:
+                break
+
+        path_count += count_paths(node.left, curr_path)
+        path_count += count_paths(node.right, curr_path)
+
+        del curr_path[-1]
+        return path_count
+
+    return count_paths(root, [])

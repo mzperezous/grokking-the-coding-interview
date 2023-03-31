@@ -1,6 +1,7 @@
 from unittest import TestCase
 from src.tree_dfs import (
     all_paths_for_sum,
+    count_paths_for_sum,
     has_path_with_given_sequence,
     has_sum_path,
     sum_of_path_numbers,
@@ -88,3 +89,24 @@ class TestTreeDFS(TestCase):
         root.right.right = TreeNode(9)
 
         self.assertEqual(has_path_with_given_sequence(root, [1, 9, 9]), True)
+
+    def test_count_paths_for_sum(self):
+        root = TreeNode(12)
+        root.left = TreeNode(7)
+        root.right = TreeNode(1)
+        root.left.left = TreeNode(4)
+        root.right.left = TreeNode(10)
+        root.right.right = TreeNode(5)
+
+        self.assertEqual(count_paths_for_sum(root, 11), 2)
+
+        root = TreeNode(1)
+        root.left = TreeNode(7)
+        root.right = TreeNode(9)
+        root.left.left = TreeNode(6)
+        root.left.right = TreeNode(5)
+        root.right.left = TreeNode(2)
+        root.right.right = TreeNode(3)
+
+        self.assertEqual(count_paths_for_sum(root, 12), 3)
+        self.assertEqual(count_paths_for_sum(root, 100), 0)
