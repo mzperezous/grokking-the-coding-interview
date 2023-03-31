@@ -222,6 +222,29 @@ def connect_all_level_order_siblings(root: TreeNode) -> None:
                 queue.append(node.right)
 
     if node:
-        node.next = None
+        node.next = None  # Unnecessary but illustrates algo w/o data structure init
 
     return
+
+def binary_tree_right_view(root: TreeNode) -> List[int]:
+    queue = deque()
+    queue.append(root)
+
+    result = []
+
+    while queue:
+        level_size = len(queue)
+
+        node = None
+        for _ in range(level_size):
+            node = queue.popleft()
+
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+
+        if node:
+            result.append(node.value)
+
+    return result
