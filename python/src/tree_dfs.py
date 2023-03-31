@@ -45,3 +45,20 @@ def all_paths_for_sum(root: TreeNode, goal: int) -> List[List[int]]:
     check_path(root, 0, [])
 
     return result
+
+def sum_of_path_numbers(root: TreeNode):
+    paths = []
+
+    def get_paths(node: TreeNode, curr_path: str = "") -> None:
+        if node is None:
+            return
+
+        if node.left is None and node.right is None:
+            paths.append(curr_path + str(node.val))
+
+        get_paths(node.left, curr_path + str(node.val))
+        get_paths(node.right, curr_path + str(node.val))
+
+    get_paths(root)
+        
+    return sum(map(lambda x: int(x), paths))
