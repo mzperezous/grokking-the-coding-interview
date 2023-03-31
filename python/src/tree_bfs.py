@@ -80,3 +80,28 @@ def zigzag_level_traversal(root: TreeNode) -> List[List[int]]:
         left_to_right = not left_to_right
 
     return list(result)
+
+def binary_tree_level_averages(root: TreeNode) -> List[int]:
+    result = []
+
+    queue = deque()
+    queue.append([root])
+
+    while queue:
+        level_list = queue.popleft()
+        level_sum, level_size = 0, len(level_list)
+        next_level = []
+
+        for node in level_list:
+            level_sum += node.value
+            if node.left:
+                next_level.append(node.left)
+            if node.right:
+                next_level.append(node.right)
+
+        result.append(level_sum / level_size)
+
+        if next_level:
+            queue.append(next_level)
+
+    return result

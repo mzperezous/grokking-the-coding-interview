@@ -1,5 +1,6 @@
 from unittest import TestCase
 from src.tree_bfs import (
+    binary_tree_level_averages,
     level_order_traverse,
     reverse_level_order_traversal,
     TreeNode,
@@ -55,3 +56,25 @@ class TestTreeBFS(TestCase):
         zigzag = zigzag_level_traversal(root)
         self.assertEqual(zigzag, [[1], [3, 2], [4, 5, 6, 7]])
     
+    def test_binary_tree_level_averages(self):
+        root = TreeNode(1)
+        root.left = TreeNode(2)
+        root.right = TreeNode(3)
+        root.left.left = TreeNode(4)
+        root.left.right = TreeNode(5)
+        root.right.left = TreeNode(6)
+        root.right.right = TreeNode(7)
+
+        averages = binary_tree_level_averages(root)
+        self.assertEqual(averages, [1, 2.5, 5.5])
+
+        root = TreeNode(12)
+        root.left = TreeNode(7)
+        root.right = TreeNode(1)
+        root.left.left = TreeNode(9)
+        root.left.right = TreeNode(2)
+        root.right.left = TreeNode(10)
+        root.right.right = TreeNode(5)
+
+        averages = binary_tree_level_averages(root)
+        self.assertEqual(averages, [12, 4, 6.5])
