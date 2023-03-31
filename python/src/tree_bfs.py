@@ -128,3 +128,24 @@ def minimum_depth_of_binary_tree(root: TreeNode) -> int:
             if node.right:
                 queue.append(node.right)
 
+def level_order_successor(root: TreeNode, key: int) -> int | None:
+    queue = deque()
+    queue.append(root)
+
+    found = False
+
+    while queue:
+        node = queue.popleft()
+
+        if found:
+            return node.value
+
+        if node.value == key:
+            found = True
+
+        if node.left:
+            queue.append(node.left)
+        if node.right:
+            queue.append(node.right)
+
+    return None
