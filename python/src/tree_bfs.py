@@ -2,9 +2,25 @@ from collections import deque
 from typing import List
 
 class TreeNode:
-  def __init__(self, val):
-    self.value = val
-    self.left, self.right = None, None
+    def __init__(self, val):
+        self.value = val
+        self.left, self.right, self.next = None, None, None
+
+    def __str__(self):
+        s = ""
+        nextLevelRoot = self
+        while nextLevelRoot:
+            current = nextLevelRoot
+            nextLevelRoot = None
+            while current:
+                s += f"{current.value} "
+                if not nextLevelRoot:
+                    if current.left:
+                        nextLevelRoot = current.left
+                    elif current.right:
+                        nextLevelRoot = current.right
+                current = current.next
+        return s.rstrip()
 
 def level_order_traverse(root: TreeNode) -> List[List[int]]:
     
@@ -149,3 +165,28 @@ def level_order_successor(root: TreeNode, key: int) -> int | None:
             queue.append(node.right)
 
     return None
+
+
+def connect_level_order_siblings(root: TreeNode) -> None:
+    queue = deque()
+    queue.append(root)
+
+    while queue:
+        level_size = len(queue)
+
+        prev = None
+        for _ in range(level_size):
+            node = queue.popleft()
+            if prev:
+                prev.next = node
+
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+
+            prev = node
+
+        node.next = None
+
+    return

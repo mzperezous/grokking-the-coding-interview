@@ -1,6 +1,7 @@
 from unittest import TestCase
 from src.tree_bfs import (
     binary_tree_level_averages,
+    connect_level_order_siblings,
     level_order_successor,
     level_order_traverse,
     minimum_depth_of_binary_tree,
@@ -119,3 +120,25 @@ class TestTreeBFS(TestCase):
 
         result = level_order_successor(root, 12)
         self.assertEqual(result, 7)
+
+    def test_connect_level_order_siblings(self):
+        root = TreeNode(12)
+        root.left = TreeNode(7)
+        root.right = TreeNode(1)
+        root.left.left = TreeNode(9)
+        root.right.left = TreeNode(10)
+        root.right.right = TreeNode(5)
+
+        connect_level_order_siblings(root)
+        self.assertEqual(str(root), "12 7 1 9 10 5")
+
+        root = TreeNode(1)
+        root.left = TreeNode(2)
+        root.right = TreeNode(3)
+        root.left.left = TreeNode(4)
+        root.left.right = TreeNode(5)
+        root.right.left = TreeNode(6)
+        root.right.right = TreeNode(7)
+
+        connect_level_order_siblings(root)
+        self.assertEqual(str(root), "1 2 3 4 5 6 7")
