@@ -2,6 +2,7 @@ from unittest import TestCase
 from src.tree_bfs import (
     binary_tree_level_averages,
     level_order_traverse,
+    minimum_depth_of_binary_tree,
     reverse_level_order_traversal,
     TreeNode,
     zigzag_level_traversal
@@ -78,3 +79,19 @@ class TestTreeBFS(TestCase):
 
         averages = binary_tree_level_averages(root)
         self.assertEqual(averages, [12, 4, 6.5])
+
+    def test_minimum_depth_of_binary_tree(self):
+        root = TreeNode(12)
+        root.left = TreeNode(7)
+        root.right = TreeNode(1)
+        root.right.left = TreeNode(10)
+        root.right.right = TreeNode(5)
+
+        depth = minimum_depth_of_binary_tree(root)
+        self.assertEqual(depth, 2)
+
+        root.left.left = TreeNode(9)
+        root.right.left.left = TreeNode(11)
+
+        depth = minimum_depth_of_binary_tree(root)
+        self.assertEqual(depth, 3)

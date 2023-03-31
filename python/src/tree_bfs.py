@@ -105,3 +105,26 @@ def binary_tree_level_averages(root: TreeNode) -> List[int]:
             queue.append(next_level)
 
     return result
+
+def minimum_depth_of_binary_tree(root: TreeNode) -> int:
+    depth = 0
+
+    queue = deque()
+    queue.append(root)
+    
+    while queue:
+        level_size = len(queue)
+
+        depth += 1
+
+        for _ in range(level_size):
+            node = queue.popleft()
+
+            if not node.left and not node.right:
+                return depth
+
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+
