@@ -120,3 +120,28 @@ def count_paths_for_sum(root: TreeNode, goal: int) -> int:
         return path_count
 
     return count_paths(root, [])
+
+def tree_diameter(root: TreeNode) -> int:
+    """
+        This was done for root-to-leaf paths. Problem statement is any path.
+    """
+
+    def get_leaf_paths(node: TreeNode, curr_path: List[int], all_paths: List[List[int]]) -> None:
+
+        path = curr_path + [node.val]
+
+        if node.left is None and node.right is None:
+            all_paths.append(path)
+        else:
+            if node.left:
+                get_leaf_paths(node.left, path, all_paths)
+            if node.right:
+                get_leaf_paths(node.right, path, all_paths)
+        
+        return
+
+    left_paths, right_paths = [], []
+    get_leaf_paths(root.left, [root.val], left_paths)
+    get_leaf_paths(root.right, [root.val], right_paths)
+
+    return len(max(left_paths, key=len)) + len(max(right_paths, key=len)) - 1

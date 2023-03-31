@@ -5,6 +5,7 @@ from src.tree_dfs import (
     has_path_with_given_sequence,
     has_sum_path,
     sum_of_path_numbers,
+    tree_diameter,
     TreeNode
 )
 
@@ -110,3 +111,13 @@ class TestTreeDFS(TestCase):
 
         self.assertEqual(count_paths_for_sum(root, 12), 3)
         self.assertEqual(count_paths_for_sum(root, 100), 0)
+
+    def test_tree_diameter(self):
+        root = TreeNode(1)
+        root.left = TreeNode(2)
+        root.right = TreeNode(3)
+        root.left.left = TreeNode(4)
+        root.right.left = TreeNode(5)
+        root.right.right = TreeNode(6)
+        
+        self.assertEqual(tree_diameter(root), 5)
