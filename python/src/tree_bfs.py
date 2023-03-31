@@ -6,7 +6,7 @@ class TreeNode:
         self.value = val
         self.left, self.right, self.next = None, None, None
 
-    def __str__(self):
+    def level_connected_string(self):
         s = ""
         nextLevelRoot = self
         while nextLevelRoot:
@@ -20,6 +20,15 @@ class TreeNode:
                     elif current.right:
                         nextLevelRoot = current.right
                 current = current.next
+        return s.rstrip()
+
+    def full_connection_string(self):
+        current = self
+        s = ""
+        while current:
+            s += f"{current.value} "
+            current = current.next
+
         return s.rstrip()
 
 def level_order_traverse(root: TreeNode) -> List[List[int]]:
@@ -187,6 +196,32 @@ def connect_level_order_siblings(root: TreeNode) -> None:
 
             prev = node
 
+        node.next = None
+
+    return
+
+def connect_all_level_order_siblings(root: TreeNode) -> None:
+    queue = deque()
+    queue.append(root)
+
+    node, prev = None, None
+    while queue:
+        level_size = len(queue)
+
+        for _ in range(level_size):
+            node = queue.popleft()
+
+            if prev:
+                prev.next = node
+            
+            prev = node
+
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+
+    if node:
         node.next = None
 
     return
