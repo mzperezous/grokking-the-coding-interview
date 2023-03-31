@@ -69,6 +69,8 @@ def sum_of_path_numbers(root: TreeNode):
 
 
 def has_path_with_given_sequence(root: TreeNode, sequence: List[int]) -> bool:
+    if root is None:
+        return len(sequence) == 0
     
     def check_path(node: TreeNode, curr_path: List[int]) -> bool:
         if node is None:
