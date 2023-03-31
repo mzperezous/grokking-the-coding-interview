@@ -47,6 +47,10 @@ def all_paths_for_sum(root: TreeNode, goal: int) -> List[List[int]]:
     return result
 
 def sum_of_path_numbers(root: TreeNode):
+    """ 
+    Post-submission: 
+        Track via integers to save space by multiplying curr_path by 10 
+    """
     paths = []
 
     def get_paths(node: TreeNode, curr_path: str = "") -> None:
@@ -62,3 +66,27 @@ def sum_of_path_numbers(root: TreeNode):
     get_paths(root)
         
     return sum(map(lambda x: int(x), paths))
+
+
+def has_path_with_given_sequence(root: TreeNode, sequence: List[int]) -> bool:
+    
+    def check_path(node: TreeNode, curr_path: List[int]) -> bool:
+        if node is None:
+            return False
+
+        curr_path.append(node.val)
+
+        res = False
+        if curr_path == sequence:
+            res = True
+        elif len(curr_path) < len(sequence):
+            res = check_path(node.left, curr_path) or check_path(node.right, curr_path)
+
+        del curr_path[-1]
+
+        return res
+
+    if [root.val] == sequence:
+        return True
+    
+    return check_path(root, [])
